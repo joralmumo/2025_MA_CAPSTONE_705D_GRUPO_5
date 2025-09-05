@@ -1,0 +1,2 @@
+Como hacer las rutas en A19:
+https://v19.angular.dev/guide/routing/common-router-tasks

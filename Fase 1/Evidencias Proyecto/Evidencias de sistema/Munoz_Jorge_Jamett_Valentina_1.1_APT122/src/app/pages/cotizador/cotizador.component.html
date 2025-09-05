@@ -1,0 +1,173 @@
+
+<div class="flex items-center mb-4 gap-2">
+  <h1 class="text-2xl font-bold">Cotizador</h1>
+  <button type="button" class="btn btn-outline btn-sm">Importar Plantilla</button>
+  <button type="button" class="btn btn-outline btn-sm">Exportar Plantilla</button>
+</div>
+
+<p>Ingrese los datos de la empresa para generar la cotización</p>
+<br>
+
+<div class="collapse collapse-arrow bg-base-100 border-base-300 border">
+  <input type="checkbox" class="collapse-toggle" id="empresaToggle" />
+  <div class="collapse-title font-semibold">
+    <label for="empresaToggle" class="cursor-pointer">
+      <h2 class="text-xl font-bold mb-2">Datos de la Empresa</h2>
+    </label>
+  </div>
+  <div class="collapse-content text-sm">
+    <div class="mb-4">
+      <label class="block mb-1">Nombre de la Empresa</label>
+      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el nombre de la empresa">
+      <div class="mt-4">
+        <label class="block mb-1">Logo de la Empresa</label>
+        <input type="file" accept="image/*" class="file-input file-input-bordered w-full" id="logoEmpresa">
+        <button type="button" class="btn btn-primary mt-2">Subir Logo</button>
+      </div>
+    </div>
+    <div class="mb-4 flex gap-4">
+      <div class="w-1/2">
+        <label class="block mb-1">Teléfono</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el teléfono de la empresa">
+      </div>
+      <div class="w-1/2">
+        <label class="block mb-1">RUT</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el RUT de la empresa">
+      </div>
+    </div>
+    <div class="mb-5">
+      <label class="block mb-1">Email</label>
+      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el email de la empresa">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-1">Dirección</label>
+      <input type="text" class="input input-bordered w-full" placeholder="Ingrese la dirección de la empresa">
+    </div>
+  </div>
+</div>
+<br>
+<div class="collapse collapse-arrow bg-base-100 border-base-300 border">
+  <input type="checkbox" class="collapse-toggle" id="clienteToggle" />
+  <div class="collapse-title font-semibold">
+    <label for="clienteToggle" class="cursor-pointer">
+      <h2 class="text-xl font-bold mb-2">Datos del Cliente</h2>
+    </label>
+  </div>
+  <div class="collapse-content text-sm">
+    <div class="mb-4">
+      <label class="block mb-1">Nombre del Cliente</label>
+      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el nombre del cliente">
+    </div>
+    <div class="mb-4 flex gap-4">
+      <div class="w-1/2">
+        <label class="block mb-1">Obra</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese la obra del cliente">
+      </div>
+      <div class="w-1/2">
+        <label class="block mb-1">Contacto</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el contacto del cliente">
+      </div>
+    </div>
+    <div class="mb-5">
+      <label class="block mb-1">Email</label>
+      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el email del cliente">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-1">Dirección</label>
+      <input type="text" class="input input-bordered w-full" placeholder="Ingrese la dirección del cliente">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-1">Fecha</label>
+      <input type="date" class="input input-bordered w-full" placeholder="Ingrese la fecha">
+    </div>
+  </div>
+</div>
+<br>
+
+<!--TABLA DE PRODUCTOS SERVICIOS-->
+<div class="flex items-center mb-4 gap-2">
+  <h1 class="text-2xl font-bold">Productos/Servicios</h1>
+  <button type="button" class="btn btn-outline btn-sm">Agregar Item</button>
+  <button type="button" class="btn btn-outline btn-sm">Quitar Item</button>
+</div>
+<div class="overflow-x-auto">
+  <table class="table table-xs">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Producto/Servicio</th>
+        <th>Descripción</th>
+        <!--Variar segun eleccion, hacer if-->
+        <th>Unidad</th>
+        <th>Cantidad</th>
+        <th>Valor Unitario</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th>1</th> <!--Automatico nro fila xd-->
+        <td>Masterseal 590</td>
+        <td>Aplicación sello de filtración activa en hormigón con mortero hidráulico Masterseal 590</td>
+        <td>N/A</td>
+        <td>1</td>
+        <td>190000</td>
+        <td>$190.000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br />
+<h1 class="text-2xl font-bold">Resumen de Precios</h1>
+<div class="flex justify mt-4">
+  <table class="table table-xs w-1/3">
+    <tbody>
+      <tr>
+        <td>Subtotal</td>
+        <td>$190.000</td>
+      </tr>
+      <tr>
+        <td>IVA (19%)</td>
+        <td>$36.100</td>
+      </tr>
+      <tr>
+        <th>Total</th>
+        <th>$226.100</th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<br />
+<h1 class="text-2xl font-bold">Condiciones Comerciales</h1>
+<div class="flex flex-col mt-4">
+  <div class="mb-4">
+    <label class="block mb-1">Validez de Oferta</label>
+    <input type="text" class="input input-bordered w-full" placeholder="Ingrese la validez de oferta">
+  </div>
+  <div class="mb-4">
+    <label class="block mb-1">Forma de Pago</label>
+    <textarea class="textarea textarea-bordered w-full" placeholder="Ingrese la forma de pago"></textarea>
+  </div>
+  <div class="mb-4">
+    <label class="block mb-1">Presupuesto Incluye:</label>
+    <textarea class="textarea textarea-bordered w-full" placeholder="Ingrese lo incluido en la oferta"></textarea>
+  </div>
+
+  <h1 class="text-2xl font-bold">Adjuntar Imágenes (Opcional)</h1>
+  <div class="mt-4">
+    <label class="block mb-1">Imágenes</label>
+    <input type="file" accept="image/*" class="file-input file-input-bordered w-full" id="imagenes" multiple>
+    <button type="button" class="btn btn-primary mt-2">Subir Imágenes</button>
+  </div>
+</div>
+<br />
+<div class="flex items-center mb-4 gap-2">
+  <h1 class="text-2xl font-bold">Generar Cotización</h1>
+</div>
+<div class="mt-4">
+    <button type="button" class="btn btn-outline btn-sm">Generar .doc</button>
+    <button type="button" class="btn btn-outline btn-sm">Generar PDF</button>
+</div>

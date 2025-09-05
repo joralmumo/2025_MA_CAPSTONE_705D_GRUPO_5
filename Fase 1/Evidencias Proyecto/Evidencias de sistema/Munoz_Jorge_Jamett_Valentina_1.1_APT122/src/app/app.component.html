@@ -1,0 +1,42 @@
+<!--PÁGINA PRINCIPAL NAVBAR Y FOOTER-->
+
+<div class="drawer lg:drawer-open">
+  <input id="sidebar" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col">
+    <!-- Navbar -->
+    <header>
+      <div class="navbar bg-base-100 shadow-sm">
+        <div class="navbar-start">
+          <!-- Botón para abrir el sidebar en móvil -->
+          <label for="sidebar" class="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </label>
+          <a class="btn btn-ghost text-xl" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">
+            Instacotiza Online
+          </a>
+        </div>
+        <div class="navbar-end">
+          <a class="btn">Iniciar Sesión</a>
+        </div>
+      </div>
+    </header>
+    <main class="flex-1" style="padding: 1%;">
+      <router-outlet></router-outlet>
+    </main>
+    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
+      <aside>
+        <p>Todos los derechos reservados ©2025 Team Dynamite - JMVJ</p>
+      </aside>
+    </footer>
+  </div>
+  <div class="drawer-side">
+    <label for="sidebar" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-48 min-h-full bg-base-200 text-base-content">
+      <li><a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a></li>
+      <li><a routerLink="/acerca-de" routerLinkActive="active" ariaCurrentWhenActive="page">Acerca de</a></li>
+      <li><a routerLink="/cotizador" routerLinkActive="active" ariaCurrentWhenActive="page">Cotizador</a></li>
+    </ul>
+  </div>
+</div>

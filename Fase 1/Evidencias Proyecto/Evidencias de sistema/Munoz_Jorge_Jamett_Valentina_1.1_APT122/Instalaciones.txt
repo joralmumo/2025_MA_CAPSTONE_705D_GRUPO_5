@@ -1,0 +1,6 @@
+TailwindCSS y daisyui:
+
+https://angular.dev/guide/tailwind
+
+https://daisyui.com/docs/install/angular/
+
