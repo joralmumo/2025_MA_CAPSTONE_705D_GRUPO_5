@@ -1,173 +1,202 @@
-
-<div class="flex items-center mb-4 gap-2">
-  <h1 class="text-2xl font-bold">Cotizador</h1>
-  <button type="button" class="btn btn-outline btn-sm">Importar Plantilla</button>
-  <button type="button" class="btn btn-outline btn-sm">Exportar Plantilla</button>
-</div>
-
-<p>Ingrese los datos de la empresa para generar la cotización</p>
-<br>
-
-<div class="collapse collapse-arrow bg-base-100 border-base-300 border">
-  <input type="checkbox" class="collapse-toggle" id="empresaToggle" />
-  <div class="collapse-title font-semibold">
-    <label for="empresaToggle" class="cursor-pointer">
-      <h2 class="text-xl font-bold mb-2">Datos de la Empresa</h2>
-    </label>
+<div class="max-w-full overflow-hidden px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center mb-4 gap-2">
+    <h1 class="text-2xl font-bold">Cotizador</h1>
+    <button type="button" class="btn btn-outline btn-sm">Importar Plantilla</button>
+    <button type="button" class="btn btn-outline btn-sm">Exportar Plantilla</button>
   </div>
-  <div class="collapse-content text-sm">
-    <div class="mb-4">
-      <label class="block mb-1">Nombre de la Empresa</label>
-      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el nombre de la empresa">
-      <div class="mt-4">
-        <label class="block mb-1">Logo de la Empresa</label>
-        <input type="file" accept="image/*" class="file-input file-input-bordered w-full" id="logoEmpresa">
-        <button type="button" class="btn btn-primary mt-2">Subir Logo</button>
+
+  <p>Ingrese los datos de la empresa para generar la cotización</p>
+  <br>
+
+  <div class="collapse collapse-arrow bg-base-100 border-base-300 border">
+    <input type="checkbox" class="collapse-toggle" id="empresaToggle" />
+    <div class="collapse-title font-semibold">
+      <label for="empresaToggle" class="cursor-pointer">
+        <h2 class="text-xl font-bold mb-2">Datos de la Empresa</h2>
+      </label>
+    </div>
+    <div class="collapse-content text-sm">
+      <div class="mb-4">
+        <label class="block mb-1">Nombre de la Empresa</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el nombre de la empresa">
+        <div class="mt-4">
+          <label class="block mb-1">Logo de la Empresa</label>
+          <input type="file" accept="image/*" class="file-input file-input-bordered w-full" id="logoEmpresa">
+          <button type="button" class="btn btn-primary mt-2">Subir Logo</button>
+        </div>
       </div>
-    </div>
-    <div class="mb-4 flex gap-4">
-      <div class="w-1/2">
-        <label class="block mb-1">Teléfono</label>
-        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el teléfono de la empresa">
+      <div class="mb-4 flex gap-4">
+        <div class="w-1/2">
+          <label class="block mb-1">Teléfono</label>
+          <input type="text" class="input input-bordered w-full" placeholder="Ingrese el teléfono de la empresa">
+        </div>
+        <div class="w-1/2">
+          <label class="block mb-1">RUT</label>
+          <input type="text" class="input input-bordered w-full" placeholder="Ingrese el RUT de la empresa">
+        </div>
       </div>
-      <div class="w-1/2">
-        <label class="block mb-1">RUT</label>
-        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el RUT de la empresa">
+      <div class="mb-5">
+        <label class="block mb-1">Email</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el email de la empresa">
       </div>
-    </div>
-    <div class="mb-5">
-      <label class="block mb-1">Email</label>
-      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el email de la empresa">
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1">Dirección</label>
-      <input type="text" class="input input-bordered w-full" placeholder="Ingrese la dirección de la empresa">
-    </div>
-  </div>
-</div>
-<br>
-<div class="collapse collapse-arrow bg-base-100 border-base-300 border">
-  <input type="checkbox" class="collapse-toggle" id="clienteToggle" />
-  <div class="collapse-title font-semibold">
-    <label for="clienteToggle" class="cursor-pointer">
-      <h2 class="text-xl font-bold mb-2">Datos del Cliente</h2>
-    </label>
-  </div>
-  <div class="collapse-content text-sm">
-    <div class="mb-4">
-      <label class="block mb-1">Nombre del Cliente</label>
-      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el nombre del cliente">
-    </div>
-    <div class="mb-4 flex gap-4">
-      <div class="w-1/2">
-        <label class="block mb-1">Obra</label>
-        <input type="text" class="input input-bordered w-full" placeholder="Ingrese la obra del cliente">
+      <div class="mb-4">
+        <label class="block mb-1">Dirección</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese la dirección de la empresa">
       </div>
-      <div class="w-1/2">
-        <label class="block mb-1">Contacto</label>
-        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el contacto del cliente">
-      </div>
-    </div>
-    <div class="mb-5">
-      <label class="block mb-1">Email</label>
-      <input type="text" class="input input-bordered w-full" placeholder="Ingrese el email del cliente">
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1">Dirección</label>
-      <input type="text" class="input input-bordered w-full" placeholder="Ingrese la dirección del cliente">
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1">Fecha</label>
-      <input type="date" class="input input-bordered w-full" placeholder="Ingrese la fecha">
     </div>
   </div>
-</div>
-<br>
+  <br>
+  <div class="collapse collapse-arrow bg-base-100 border-base-300 border">
+    <input type="checkbox" class="collapse-toggle" id="clienteToggle" />
+    <div class="collapse-title font-semibold">
+      <label for="clienteToggle" class="cursor-pointer">
+        <h2 class="text-xl font-bold mb-2">Datos del Cliente</h2>
+      </label>
+    </div>
+    <div class="collapse-content text-sm">
+      <div class="mb-4">
+        <label class="block mb-1">Nombre del Cliente</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el nombre del cliente">
+      </div>
+      <div class="mb-4 flex gap-4">
+        <div class="w-1/2">
+          <label class="block mb-1">Obra</label>
+          <input type="text" class="input input-bordered w-full" placeholder="Ingrese la obra del cliente">
+        </div>
+        <div class="w-1/2">
+          <label class="block mb-1">Contacto</label>
+          <input type="text" class="input input-bordered w-full" placeholder="Ingrese el contacto del cliente">
+        </div>
+      </div>
+      <div class="mb-5">
+        <label class="block mb-1">Email</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese el email del cliente">
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1">Dirección</label>
+        <input type="text" class="input input-bordered w-full" placeholder="Ingrese la dirección del cliente">
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1">Fecha</label>
+        <input type="date" class="input input-bordered w-full" placeholder="Ingrese la fecha">
+      </div>
+    </div>
+  </div>
+  <br>
 
-<!--TABLA DE PRODUCTOS SERVICIOS-->
-<div class="flex items-center mb-4 gap-2">
-  <h1 class="text-2xl font-bold">Productos/Servicios</h1>
-  <button type="button" class="btn btn-outline btn-sm">Agregar Item</button>
-  <button type="button" class="btn btn-outline btn-sm">Quitar Item</button>
-</div>
-<div class="overflow-x-auto">
-  <table class="table table-xs">
-    <thead>
-      <tr>
-        <th></th>
-        <th></th>
-        <th>Producto/Servicio</th>
-        <th>Descripción</th>
-        <!--Variar segun eleccion, hacer if-->
-        <th>Unidad</th>
-        <th>Cantidad</th>
-        <th>Valor Unitario</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th><input type="checkbox" /></th>
-        <th>1</th> <!--Automatico nro fila xd-->
-        <td>Masterseal 590</td>
-        <td>Aplicación sello de filtración activa en hormigón con mortero hidráulico Masterseal 590</td>
-        <td>N/A</td>
-        <td>1</td>
-        <td>190000</td>
-        <td>$190.000</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<br />
-<h1 class="text-2xl font-bold">Resumen de Precios</h1>
-<div class="flex justify mt-4">
-  <table class="table table-xs w-1/3">
-    <tbody>
-      <tr>
-        <td>Subtotal</td>
-        <td>$190.000</td>
-      </tr>
-      <tr>
-        <td>IVA (19%)</td>
-        <td>$36.100</td>
-      </tr>
-      <tr>
-        <th>Total</th>
-        <th>$226.100</th>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-<br />
-<h1 class="text-2xl font-bold">Condiciones Comerciales</h1>
-<div class="flex flex-col mt-4">
   <div class="mb-4">
-    <label class="block mb-1">Validez de Oferta</label>
-    <input type="text" class="input input-bordered w-full" placeholder="Ingrese la validez de oferta">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+      <h1 class="text-2xl font-bold">Productos/Servicios</h1>
+      <div class="flex gap-2">
+        <button type="button" class="btn btn-outline btn-success btn-sm hover:btn-success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle mr-1" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+          </svg>
+          Agregar Item
+        </button>
+        <button type="button" class="btn btn-outline btn-error btn-sm hover:btn-error">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle mr-1" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+          </svg>
+          Quitar Item
+        </button>
+      </div>
+    </div>
   </div>
-  <div class="mb-4">
-    <label class="block mb-1">Forma de Pago</label>
-    <textarea class="textarea textarea-bordered w-full" placeholder="Ingrese la forma de pago"></textarea>
+  <div class="overflow-x-auto -mx-4 sm:mx-0">
+    <div class="inline-block min-w-full px-4 sm:px-0">
+      <table class="table table-xs w-full">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Producto/Servicio</th>
+            <th>Descripción</th>
+            <!--Variar segun eleccion, hacer if-->
+            <th>Unidad</th>
+            <th>Cantidad</th>
+            <th>Valor Unitario</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><input type="checkbox" /></th>
+            <th>1</th> <!--Automatico nro fila xd-->
+            <td>Masterseal 590</td>
+            <td>Aplicación sello de filtración activa en hormigón con mortero hidráulico Masterseal 590</td>
+            <td>N/A</td>
+            <td>1</td>
+            <td>190000</td>
+            <td>$190.000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="mb-4">
-    <label class="block mb-1">Presupuesto Incluye:</label>
-    <textarea class="textarea textarea-bordered w-full" placeholder="Ingrese lo incluido en la oferta"></textarea>
+  <br />
+  <h1 class="text-2xl font-bold">Resumen de Precios</h1>
+  <div class="flex justify mt-4">
+    <table class="table table-xs w-1/3">
+      <tbody>
+        <tr>
+          <td>Subtotal</td>
+          <td>$190.000</td>
+        </tr>
+        <tr>
+          <td>IVA (19%)</td>
+          <td>$36.100</td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <th>$226.100</th>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <h1 class="text-2xl font-bold">Adjuntar Imágenes (Opcional)</h1>
-  <div class="mt-4">
-    <label class="block mb-1">Imágenes</label>
-    <input type="file" accept="image/*" class="file-input file-input-bordered w-full" id="imagenes" multiple>
-    <button type="button" class="btn btn-primary mt-2">Subir Imágenes</button>
+  <br />
+  <h1 class="text-2xl font-bold">Condiciones Comerciales</h1>
+  <div class="flex flex-col mt-4">
+    <div class="mb-4">
+      <label class="block mb-1">Validez de Oferta</label>
+      <input type="text" class="input input-bordered w-full" placeholder="Ingrese la validez de oferta">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-1">Forma de Pago</label>
+      <textarea class="textarea textarea-bordered w-full" placeholder="Ingrese la forma de pago"></textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block mb-1">Presupuesto Incluye:</label>
+      <textarea class="textarea textarea-bordered w-full" placeholder="Ingrese lo incluido en la oferta"></textarea>
+    </div>
+
+    <h1 class="text-2xl font-bold">Adjuntar Imágenes (Opcional)</h1>
+    <div class="mt-4">
+      <label class="block mb-1">Imágenes</label>
+      <input type="file" accept="image/*" class="file-input file-input-bordered w-full" id="imagenes" multiple>
+      <button type="button" class="btn btn-primary mt-2">Subir Imágenes</button>
+    </div>
   </div>
-</div>
-<br />
-<div class="flex items-center mb-4 gap-2">
-  <h1 class="text-2xl font-bold">Generar Cotización</h1>
-</div>
-<div class="mt-4">
-    <button type="button" class="btn btn-outline btn-sm">Generar .doc</button>
-    <button type="button" class="btn btn-outline btn-sm">Generar PDF</button>
+  <br />
+  <div class="flex items-center mb-4 gap-2">
+    <h1 class="text-2xl font-bold">Generar Cotización</h1>
+  </div>
+  <div class="mt-4 flex gap-2">
+      <button type="button" class="btn btn-outline btn-info btn-sm hover:btn-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-doc" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zm-7.839 9.166v.522q0 .384-.117.641a.86.86 0 0 1-.322.387.9.9 0 0 1-.469.126.9.9 0 0 1-.471-.126.87.87 0 0 1-.32-.386 1.55 1.55 0 0 1-.117-.642v-.522q0-.386.117-.641a.87.87 0 0 1 .32-.387.87.87 0 0 1 .471-.129q.264 0 .469.13a.86.86 0 0 1 .322.386q.117.255.117.641m.803.519v-.513q0-.565-.205-.972a1.46 1.46 0 0 0-.589-.63q-.381-.22-.917-.22-.533 0-.92.22a1.44 1.44 0 0 0-.589.627q-.204.406-.205.975v.513q0 .563.205.973.205.406.59.627.386.216.92.216.535 0 .916-.216.383-.22.59-.627.204-.41.204-.973M0 11.926v4h1.459q.603 0 .999-.238a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.59-.68q-.395-.234-1.004-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082H.79V12.57Zm7.422.483a1.7 1.7 0 0 0-.103.633v.495q0 .369.103.627a.83.83 0 0 0 .298.393.85.85 0 0 0 .478.131.9.9 0 0 0 .401-.088.7.7 0 0 0 .273-.248.8.8 0 0 0 .117-.364h.765v.076a1.27 1.27 0 0 1-.226.674q-.205.29-.55.454a1.8 1.8 0 0 1-.786.164q-.54 0-.914-.216a1.4 1.4 0 0 1-.571-.627q-.194-.408-.194-.976v-.498q0-.568.197-.978.195-.411.571-.633.378-.223.911-.223.328 0 .607.097.28.093.489.272a1.33 1.33 0 0 1 .466.964v.073H9.78a.85.85 0 0 0-.12-.38.7.7 0 0 0-.273-.261.8.8 0 0 0-.398-.097.8.8 0 0 0-.475.138.87.87 0 0 0-.301.398"/>
+        </svg>
+        Generar .doc
+      </button>
+      <button type="button" class="btn btn-outline btn-warning btn-sm hover:btn-warning">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z"/>
+        </svg>
+        Generar PDF
+      </button>
+  </div>
 </div>
