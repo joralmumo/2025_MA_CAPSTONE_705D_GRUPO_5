@@ -5,4 +5,4 @@ Integrantes:
 * Valentina Katherine Jamett Gallardo
 * Jorge Alberto Muñoz Molina
 
-Github Repositorio del sistema: [>Aquí<](https://github.com/valjamettduoc/Munoz_Jorge_Jamett_Valentina_1.1_APT122)
+Github Repositorio del sistema: [>Aquí<](https://github.com/joralmumo/InstacotizaOnlineDlx)
