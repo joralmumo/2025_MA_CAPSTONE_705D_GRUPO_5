@@ -1,0 +1,42 @@
+  <!-- Loading state -->
+  @if (isLoading) {
+    <div class="loading">
+      <p>Cargando cotizaciones...</p>
+    </div>
+  }
+
+  <!-- Error state -->
+  @if (error && !isLoading) {
+    <div class="error">
+      <p>{{ error }}</p>
+      <button class="btn-retry" (click)="cargarUsuarios ()">Reintentar</button>
+    </div>
+  }
+
+   <table class="table table-striped flex-2">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (usuario of usuarios; track usuario.id) {
+                <tr class="border-b">
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.correo }}</td>
+                    <td>{{ usuario.rol }}</td>
+                    <td>
+                        <button (click)="eliminar(usuario, $index)"
+                                class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                        Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>   
+

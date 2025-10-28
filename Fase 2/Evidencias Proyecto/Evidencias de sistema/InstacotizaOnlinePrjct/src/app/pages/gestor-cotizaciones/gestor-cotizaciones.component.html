@@ -1,0 +1,113 @@
+<div class="gestor-container">
+  <!-- Header moderno -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <div class="icon-title">📋</div>
+        <div>
+          <h1 class="page-title">Gestor de Cotizaciones</h1>
+          <p class="page-subtitle">Administra y visualiza tus cotizaciones</p>
+        </div>
+      </div>
+      <button class="btn-reload" (click)="recargarCotizaciones()" [disabled]="isLoading">
+        <span class="icon">{{ isLoading ? '⏳' : '🔄' }}</span>
+        <span class="text">{{ isLoading ? 'Cargando...' : 'Recargar' }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading state -->
+  @if (isLoading) {
+    <div class="state-card loading-state">
+      <div class="spinner"></div>
+      <p class="state-text">Cargando cotizaciones...</p>
+    </div>
+  }
+
+  <!-- Error state -->
+  @if (error && !isLoading) {
+    <div class="state-card error-state">
+      <div class="state-icon">⚠️</div>
+      <h3 class="state-title">Error al cargar</h3>
+      <p class="state-text">{{ error }}</p>
+      <button class="btn-retry" (click)="recargarCotizaciones()">
+        <span>🔄</span>
+        Reintentar
+      </button>
+    </div>
+  }
+
+  <!-- Empty state -->
+  @if (cotizaciones.length === 0 && !isLoading && !error) {
+    <div class="state-card empty-state">
+      <div class="state-icon">📄</div>
+      <h2 class="state-title">No hay cotizaciones</h2>
+      <p class="state-text">Aún no has creado ninguna cotización. ¡Comienza ahora!</p>
+      <a href="/cotizador-r" class="btn-create">
+        <span>📝</span>
+        Crear nueva cotización
+      </a>
+    </div>
+  }
+
+  <!-- Tabla de cotizaciones -->
+  @if (cotizaciones.length > 0 && !isLoading) {
+    <div class="table-card">
+      <div class="table-header-info">
+        <h3 class="table-title">Cotizaciones registradas</h3>
+        <span class="table-count">{{ cotizaciones.length }} {{ cotizaciones.length === 1 ? 'cotización' : 'cotizaciones' }}</span>
+      </div>
+      
+      <div class="table-wrapper">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>Nro. Cotización</th>
+              <th>Cliente</th>
+              <th>Obra</th>
+              <th>Fecha</th>
+              <th>Creada</th>
+              <th>Productos</th>
+              <th>Total</th>
+              <th class="actions-col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (cotizacion of cotizaciones; track cotizacion.nro_cotizacion; let i = $index) {
+              <tr class="table-row">
+                <td>
+                  <span class="badge-numero">{{ cotizacion.nro_cotizacion }}</span>
+                </td>
+                <td class="cliente-cell">{{ cotizacion.nombre_cliente }}</td>
+                <td class="obra-cell">{{ cotizacion.obra_cliente }}</td>
+                <td>{{ cotizacion.fecha }}</td>
+                <td class="fecha-creacion">{{ cotizacion.fecha_creacion }}</td>
+                <td>{{ cotizacion.productos.length }}</td>
+                <td class="total-cell">
+                  <strong>{{ calcularTotalCotizacion(cotizacion.productos, cotizacion.moneda ?? 'CLP') }}</strong>
+                </td>
+                <td class="actions-cell">
+                  <button
+                    class="btn-load"
+                    (click)="cargarCotizacion(cotizacion, $index)"
+                    title="Cargar Cotización">
+                    <span>📥</span>
+                    <span>Usar</span>
+                  </button>
+                  <button 
+                    class="btn-delete" 
+                    (click)="eliminarCotizacion(cotizacion, i)"
+                    title="Eliminar Cotización"
+                  >
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+
+</div>

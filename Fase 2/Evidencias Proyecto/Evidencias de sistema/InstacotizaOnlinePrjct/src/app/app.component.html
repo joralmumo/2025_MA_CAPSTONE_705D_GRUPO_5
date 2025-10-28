@@ -1,0 +1,135 @@
+<!--PÁGINA PRINCIPAL NAVBAR Y FOOTER-->
+
+<div class="drawer lg:drawer-open">
+  <input id="sidebar" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col">
+    <!-- Navbar -->
+    <header class="navbar-header">
+      <div class="navbar bg-base-100">
+        <div class="navbar-start">
+          <!-- Botón para abrir el sidebar en celu -->
+          <label for="sidebar" class="btn btn-ghost lg:hidden menu-toggle-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </label><!--
+          <a class="logo-container" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <img src="https://github.com/joralmumo/InstacotizaOnlineDlx/blob/main/src/app/static/img/icon.png?raw=true" alt="InstaCotiza" class="logo-img"/>
+            <span class="logo-text">InstaCotiza</span>
+          </a>-->
+        </div>
+        
+
+
+        <div class="navbar-end gap-2">
+          @if (isLoggedIn()) {
+            <a class="user-profile-link" routerLink="/perfil" routerLinkActive="active">
+              <div class="avatar-circle-small">
+                <span class="avatar-initials-small">{{ getInitials() }}</span>
+              </div>
+              <span class="user-name-header">{{ getUserName() }}</span>
+            </a>
+          }
+          @else {
+            <a class="btn-register-header" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+              </svg>
+              <span>Regístrate</span>
+            </a>
+            <a class="btn-login-header" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
+              <span>Iniciar Sesión</span>
+            </a>
+          }
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 object-fit" style="padding: 1%;">
+      <router-outlet></router-outlet>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4">
+      <aside>
+        <p>Todos los derechos reservados ©2025 Team Dynamite - JMVJ</p>
+      </aside>
+    </footer>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="drawer-side">
+    <label for="sidebar" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-52 min-h-full bg-base-200 text-base-content flex flex-col">
+      <!-- Título del sidebar -->
+      <div class="flex items-center gap-3 px-2 mb-6">
+        <img src="https://github.com/joralmumo/InstacotizaOnlineDlx/blob/main/src/app/static/img/icon.png?raw=true" 
+             alt="InstaCotiza" 
+             class="w-8 h-8 rounded-lg"/>
+        <span class="text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          InstaCotiza
+        </span>
+      </div>
+
+      <!-- Enlaces del menú con mejor espaciado -->
+      <li class="mb-1">
+        <a routerLink="/home" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
+          <span class="text-lg mr-2">🏠</span>
+          <span class="font-medium">Home</span>
+        </a>
+      </li>
+      @if (isLoggedIn()) {
+        <li class="mb-1">
+          <a routerLink="/cotizador-r" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
+            <span class="text-lg mr-2">📝</span>
+            <span class="font-medium">Cotizador</span>
+          </a>
+        </li>
+        <li class="mb-1">
+          <a routerLink="/gestor-cotizaciones" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
+            <span class="text-lg mr-2">📋</span>
+            <span class="font-medium">Gestor</span>
+          </a>
+        </li>
+      }
+      @else {
+        <li class="mb-1">
+          <a routerLink="/cotizador" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
+            <span class="text-lg mr-2">📝</span>
+            <span class="font-medium">Cotizador</span>
+          </a>
+        </li>
+      }
+      @if (isLoggedIn() && isAdmin()) {
+        <li class="mb-1">
+          <a routerLink="/admin" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
+            <span class="text-lg mr-2">⚙️</span>
+            <span class="font-medium">Admin</span>
+          </a>
+        </li>
+      }
+      <li class="mb-1">
+        <a routerLink="/acerca-de" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
+          <span class="text-lg mr-2">ℹ️</span>
+          <span class="font-medium">Acerca de</span>
+        </a>
+      </li>
+      
+      <!-- Separador y botón de cerrar sesión -->
+      @if (isLoggedIn()) {
+        <li class="mt-auto">
+          <hr class="my-2 border-base-300">
+        </li>
+        <li>
+          <a (click)="cerrarSesion()" class="logout-btn">
+            ⏻ Cerrar Sesión
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</div>

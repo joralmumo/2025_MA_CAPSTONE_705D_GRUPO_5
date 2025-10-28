@@ -1,0 +1,134 @@
+<div class="perfil-container">
+    <!--header del perfil-->
+    <div class="perfil-header">
+        <h1>Mi Perfil</h1>
+        <p class="subtitle">Gestiona tu información Personal</p>
+    </div>
+
+    <!--Animación de carga-->
+    @if (cargando){
+        <div class="loading-container">
+            <div class="spinner"></div>  
+            <p>Cargando...</p>
+        </div>
+    }
+
+    <!--Contenido del perfil-->
+    @if (!cargando && usuario){
+        <div>
+            <!--tarj usuario-->
+            <div class="usuario-card">
+                <!--Avatar e info basica-->
+                <div class="usuario-header">
+                    <div class="avatar">
+                        <span class="avatar-initials">{{ obtenerIniciales() }}</span>
+                    </div>
+                    <div class="usuario-info">
+                         <h2>{{usuario.nombre}}</h2>
+                        <p class="correo">{{ usuario.correo }}</p>
+                    </div>
+                    <div class="acciones-header">
+                        @if (!editandoPerfil){
+                            <button class="btn btn-editar" (click)="iniciarEdicion()">
+                                <i class="icon-edit"></i>
+                                Editar Perfil
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <!--Info detallada-->
+                <div class="usuario-detalles">
+                <!-- Modo de visualizacion -->
+                @if (!editandoPerfil){
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Nombre Completo</label>
+                            <p>{{ usuario.nombre }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Correo Electrónico</label>
+                            <p>{{ usuario.correo }}</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Estado de la Cuenta</label>
+                            <p>
+                            <span class="estado-badge" [class]="usuario.isactive ? 'activo' : 'inactivo'">
+                                {{ usuario.isactive ? 'Activa' : 'Inactiva' }}
+                            </span>
+                            </p>
+                        </div>
+
+                    </div>
+                }
+                <!-- Modo de edicion -->
+                @if(editandoPerfil){
+                    <div [formGroup]="usuarioEditor" class="edicion-form">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label>
+                            <input id="nombre" formControlName="nombre" type="text" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico</label>
+                            <input id="correo" formControlName="correo" type="email" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class = "form-actions">
+                        <button class="btn btn-guardar" (click)="guardarCambios()" [disabled]="usuarioEditor.invalid">
+                            <i class="icon-save"></i>
+                            Guardar Cambios
+                        </button>
+                        <button class="btn btn-cancelar" (click)="cancelarEdicion()">
+                            <i class="icon-cancel"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                }
+            </div>
+            </div>
+
+            <br>
+            <div>
+                <div class="estadisticas-card">
+                    <h3>Resumen de Actividad</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                        <div class="stat-number">{{ usuario.cotizaciones.length || 0 }}</div>
+                        <div class="stat-label">Cotizaciones Totales</div>
+                        </div>
+                        <div class="stat-item">
+                        <div class="stat-number">{{ usuario.isactive ? 'Activa' : 'Inactiva' }}</div>
+                        <div class="stat-label">Estado de Cuenta</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <!-- Otras acciones -->
+            <div class="acciones-card">
+            <h3>Acciones de Cuenta</h3>
+            <div class="acciones-list">
+                <a href="/recuperar-contrasena" class="accion-item">
+                <i class="icon-settings"></i>
+                <div>
+                    <h4>Cambiar Contraseña</h4>
+                    <p>Actualiza tu contraseña de acceso</p>
+                </div>
+                <i class="icon-arrow-right"></i>
+                </a>
+                
+                <a href="/gestor-cotizaciones" class="accion-item">
+                <i class="icon-list"></i>
+                <div>
+                    <h4>Mis Cotizaciones</h4>
+                    <p>Ver todas tus cotizaciones realizadas</p>
+                </div>
+                <i class="icon-arrow-right"></i>
+                </a>
+            </div>
+            </div>
+        </div>
+    }
+
+</div>

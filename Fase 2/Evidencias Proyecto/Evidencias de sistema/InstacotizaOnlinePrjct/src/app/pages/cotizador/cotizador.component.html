@@ -1,0 +1,301 @@
+<form [formGroup]="form" class="space-y-6 p-4">    
+  <!-- Moneda -->
+  <div class="flex items-center mb-4 gap-2">
+    <h1 class="text-2xl font-bold">Cotizador</h1>
+    <button type="button" (click)="importar_cotizacion()" class="btn btn-outline btn-sm">Importar Plantilla</button>
+    <button type="button" (click)="exportar_cotizacion()" class="btn btn-outline btn-sm">Exportar Plantilla</button>
+  </div>
+  <div class="form-control">
+    <div class="flex items-center mb-2 gap-2">
+      <label for="moneda" class="label font-medium">Moneda</label>
+      <br>
+      <select
+        formControlName="moneda"
+        id="moneda"
+        class="select select-bordered w-full"
+      >
+        <option value="CLP">Pesos Chilenos</option>
+        <option value="UF">UF</option>
+      </select>
+      <label for="nro_cotizacion">Nº Cotización</label>
+      <input formControlName="nro_cotizacion" id="nro_cotizacion" placeholder="N° Cotización" class="input input-bordered w-32 ml-4"/>
+
+    </div>
+  </div>
+
+  <!-- Empresa -->
+  <div class="collapse collapse-arrow bg-base-200 rounded-lg shadow">
+    <input type="checkbox" />
+    <div class="collapse-title text-lg font-bold">DATOS EMPRESA</div>
+    <div class="collapse-content space-y-3">
+      <div class="form-control">
+        <label for="nombre_empresa" class="label">Nombre Empresa</label>
+        <input
+          formControlName="nombre_empresa"
+          id="nombre_empresa"
+          placeholder="Nombre Empresa"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="logo" class="label">Su Logo</label>
+        <input
+          type="file"
+          formControlName="logo"
+          id="logo"
+          class="file-input file-input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="rut_empresa" class="label">RUT Empresa</label>
+        <input
+          formControlName="rut_empresa"
+          id="rut_empresa"
+          placeholder="RUT Empresa"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="telefono_empresa" class="label">Teléfono Empresa</label>
+        <input
+          formControlName="telefono_empresa"
+          id="telefono_empresa"
+          placeholder="Teléfono Empresa"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="email_empresa" class="label">Email Empresa</label>
+        <input
+          formControlName="email_empresa"
+          id="email_empresa"
+          placeholder="Email Empresa"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="direccion_empresa" class="label">Dirección Empresa</label>
+        <input
+          formControlName="direccion_empresa"
+          id="direccion_empresa"
+          placeholder="Dirección Empresa"
+          class="input input-bordered w-full"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Cliente -->
+  <div class="collapse collapse-arrow bg-base-200 rounded-lg shadow">
+    <input type="checkbox" />
+    <div class="collapse-title text-lg font-bold">DATOS CLIENTE</div>
+    <div class="collapse-content space-y-3">
+      <div class="form-control">
+        <label for="nombre_cliente" class="label">Nombre Cliente</label>
+        <input
+          formControlName="nombre_cliente"
+          id="nombre_cliente"
+          placeholder="Nombre Cliente"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="obra_cliente" class="label">Obra Cliente</label>
+        <input
+          formControlName="obra_cliente"
+          id="obra_cliente"
+          placeholder="Obra Cliente"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="contacto_cliente" class="label">Contacto Cliente</label>
+        <input
+          formControlName="contacto_cliente"
+          id="contacto_cliente"
+          placeholder="Contacto Cliente"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="email_cliente" class="label">Email Cliente</label>
+        <input
+          formControlName="email_cliente"
+          id="email_cliente"
+          placeholder="Email Cliente"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="direccion_cliente" class="label">Dirección Cliente</label>
+        <input
+          formControlName="direccion_cliente"
+          id="direccion_cliente"
+          placeholder="Dirección Cliente"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div class="form-control">
+        <label for="fecha" class="label">Fecha</label>
+        <input
+          type="date"
+          formControlName="fecha"
+          id="fecha"
+          class="input input-bordered w-full"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Productos -->
+  <div class="bg-base-200 p-4 rounded-lg shadow space-y-3">
+    <h2 class="text-lg font-bold">PRODUCTOS</h2>
+    <div class="flex flex-col gap-2">
+      <span class="text-sm">total productos: {{productosArray.length}}</span>
+      <button
+        type="button"
+        (click)="addProduct()"
+        class="btn btn-primary btn-sm w-fit"
+      >
+        Agregar Producto
+      </button>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full text-sm">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Descripción</th>
+              <th>Unidad</th>
+              <th>Cantidad</th>
+              <th>Valor Unitario</th>
+              <th>Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="productos">
+            @for (control of productosArray.controls; track control; let index=$index){
+              <tr [formGroupName]="index">
+                <td>
+                  <textarea
+                    formControlName="producto"
+                    class="textarea textarea-bordered textarea-sm w-full"
+                  ></textarea>
+                </td>
+                <td>
+                  <textarea
+                    formControlName="descripcion"
+                    class="textarea textarea-bordered textarea-sm w-full"
+                  ></textarea>
+                </td>
+                <td>
+                  <select
+                    formControlName="unidad"
+                    class="select select-bordered select-sm w-full"
+                  >
+                    <option value="" disabled>Seleccione</option>
+                    <option value="m2">m²</option>
+                    <option value="m3">m³</option>
+                    <option value="cm">cm</option>
+                    <option value="cm2">cm²</option>
+                  </select>
+                </td>
+                <td>
+                  <input
+                    formControlName="cantidad"
+                    type="number"
+                    min="0"
+                    class="input input-bordered input-sm w-20"
+                  />
+                </td>
+                <td>
+                  <input
+                    formControlName="valorUnitario"
+                    type="number"
+                    min="0"
+                    class="input input-bordered input-sm w-24"
+                  />
+                </td>
+                <td>
+                  {{ getTotal(index) | number:'1.0-0' }}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="removeProduct(index)"
+                    class="btn btn-error btn-xs"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Resumen -->
+    <h2 class="text-lg font-bold">RESUMEN</h2>
+    <div class="overflow-x-auto">
+      <table class="table table-compact w-full">
+        <thead>
+          <tr>
+            <th>Subtotal</th>
+            <th>IVA (19%)</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ getSubtotal() | number:'1.0-0' }}</td>
+            <td>{{ getIVA() | number:'1.0-0' }}</td>
+            <td>{{ getTotalCotizacion() | number:'1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Condiciones -->
+  <div class="bg-base-200 p-4 rounded-lg shadow space-y-3">
+    <h2 class="text-lg font-bold">CONDICIONES</h2>
+    <div class="form-control">
+      <label for="validez_oferta" class="label">Validez Oferta</label>
+      <input
+        formControlName="validez_oferta"
+        id="validez_oferta"
+        placeholder="Validez Oferta"
+        class="input input-bordered w-full"
+      />
+    </div>
+    <div class="form-control">
+      <label for="forma_pago" class="label">Forma de Pago</label>
+      <input
+        formControlName="forma_pago"
+        id="forma_pago"
+        placeholder="Forma de Pago"
+        class="input input-bordered w-full"
+      />
+    </div>
+    <div class="form-control">
+      <label for="presupuesto_incluye" class="label">Presupuesto Incluye</label>
+      <input
+        formControlName="presupuesto_incluye"
+        id="presupuesto_incluye"
+        placeholder="Presupuesto Incluye"
+        class="input input-bordered w-full"
+      />
+    </div>
+  </div>
+
+  <!-- Generar -->
+  <div class="flex gap-2 justify-center">
+    <button type="button" (click)="generar_doc()" class="btn btn-secondary">
+      Generar DOC
+    </button>
+    <!--<button type="button" (click)="generar_pdf()" class="btn btn-primary">
+      Generar PDF
+    </button>-->
+    
+  </div>
+</form>

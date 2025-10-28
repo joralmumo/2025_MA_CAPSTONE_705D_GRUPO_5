@@ -1,0 +1,116 @@
+<div class="min-h-screen flex items-center justify-center bg-base-200 px-4">
+  <div class="max-w-md w-full bg-base-100 rounded-lg shadow-xl p-8">
+    <!-- Encabezado -->
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="w-8 h-8 text-secondary" 
+             fill="none" 
+             viewBox="0 0 24 24" 
+             stroke="currentColor">
+          <path stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+        </svg>
+      </div>
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
+        Crear cuenta
+      </h1>
+      <p class="text-base-content/60 mt-2">
+        Únete a nuestra comunidad
+      </p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="registerForm" (ngSubmit)="Enviar()" class="space-y-6">
+      <!-- Campo de nombre -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Nombre completo</span>
+        </label>
+        <input type="text" 
+               formControlName="nombre"
+               placeholder="Juan Pérez"
+               class="input input-bordered w-full bg-base-200/50 focus:bg-base-200 transition-colors"
+               [class.input-error]="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched"/>
+        @if (registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched) {
+          <label class="label">
+            <span class="label-text-alt text-error">
+              @if (registerForm.get('nombre')?.errors?.['required']) {
+                El nombre es requerido
+              } @else if (registerForm.get('nombre')?.errors?.['pattern']) {
+                Solo se permiten letras y espacios
+              } @else if (registerForm.get('nombre')?.errors?.['maxlength']) {
+                Máximo 80 caracteres
+              }
+            </span>
+          </label>
+        }
+      </div>
+
+      <!-- Campo de correo -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Correo electrónico</span>
+        </label>
+        <input type="email" 
+               formControlName="correo"
+               placeholder="tu@email.com"
+               class="input input-bordered w-full bg-base-200/50 focus:bg-base-200 transition-colors"
+               [class.input-error]="registerForm.get('correo')?.invalid && registerForm.get('correo')?.touched"/>
+        @if (registerForm.get('correo')?.invalid && registerForm.get('correo')?.touched) {
+          <label class="label">
+            <span class="label-text-alt text-error">
+              @if (registerForm.get('correo')?.errors?.['required']) {
+                El correo es requerido
+              } @else if (registerForm.get('correo')?.errors?.['email']) {
+                Ingresa un correo válido
+              }
+            </span>
+          </label>
+        }
+      </div>
+
+      <!-- Campo de contraseña -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Contraseña</span>
+        </label>
+        <input type="password" 
+               formControlName="contrasena"
+               placeholder="••••••••"
+               class="input input-bordered w-full bg-base-200/50 focus:bg-base-200 transition-colors"
+               [class.input-error]="registerForm.get('contrasena')?.invalid && registerForm.get('contrasena')?.touched"/>
+        @if (registerForm.get('contrasena')?.invalid && registerForm.get('contrasena')?.touched) {
+          <label class="label">
+            <span class="label-text-alt text-error">
+              @if (registerForm.get('contrasena')?.errors?.['required']) {
+                La contraseña es requerida
+              } @else if (registerForm.get('contrasena')?.errors?.['minlength']) {
+                Mínimo 6 caracteres
+              } @else if (registerForm.get('contrasena')?.errors?.['maxlength']) {
+                Máximo 20 caracteres
+              }
+            </span>
+          </label>
+        }
+      </div>
+
+      <!-- Botón de registro -->
+      <button type="submit" 
+              class="btn btn-secondary w-full"
+              [disabled]="registerForm.invalid">
+        Crear cuenta
+      </button>
+
+      <!-- Enlace de login -->
+      <p class="text-center text-sm mt-6">
+        ¿Ya tienes una cuenta?
+        <a routerLink="/login" class="link link-secondary hover:link-primary transition-colors ml-1">
+          Inicia sesión aquí
+        </a>
+      </p>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="min-h-screen flex items-center justify-center bg-base-200 px-4">
+  <div class="max-w-md w-full bg-base-100 rounded-lg shadow-xl p-8">
+    <!-- Encabezado -->
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" 
+             class="w-8 h-8 text-primary" 
+             fill="none" 
+             viewBox="0 0 24 24" 
+             stroke="currentColor">
+          <path stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h1 class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        Bienvenido
+      </h1>
+      <p class="text-base-content/60 mt-2">
+        Accede a tu cuenta para continuar
+      </p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="loginForm" (ngSubmit)="IniciarSesion()" class="space-y-6">
+      <!-- Campo de correo -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Correo electrónico</span>
+        </label>
+        <input type="email" 
+               formControlName="correo"
+               placeholder="tu@email.com"
+               class="input input-bordered w-full bg-base-200/50 focus:bg-base-200 transition-colors"
+               [class.input-error]="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched"/>
+        @if (loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched) {
+          <label class="label">
+            <span class="label-text-alt text-error">
+              @if (loginForm.get('correo')?.errors?.['required']) {
+                El correo es requerido
+              } @else if (loginForm.get('correo')?.errors?.['email']) {
+                Ingresa un correo válido
+              }
+            </span>
+          </label>
+        }
+      </div>
+
+      <!-- Campo de contraseña -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Contraseña</span>
+        </label>
+        <input type="password" 
+               formControlName="contrasena"
+               placeholder="••••••••"
+               class="input input-bordered w-full bg-base-200/50 focus:bg-base-200 transition-colors"
+               [class.input-error]="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched"/>
+        @if (loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched) {
+          <label class="label">
+            <span class="label-text-alt text-error">
+              @if (loginForm.get('contrasena')?.errors?.['required']) {
+                La contraseña es requerida
+              } @else if (loginForm.get('contrasena')?.errors?.['minlength']) {
+                Mínimo 6 caracteres
+              } @else if (loginForm.get('contrasena')?.errors?.['maxlength']) {
+                Máximo 20 caracteres
+              }
+            </span>
+          </label>
+        }
+      </div>
+
+      <!-- Enlaces de ayuda -->
+      <div class="flex items-center justify-between text-sm">
+        <a routerLink="/recuperar-contrasena" class="link link-primary hover:link-secondary transition-colors">
+          ¿Olvidaste tu contraseña?
+        </a>
+      </div>
+
+      <!-- Botón de inicio de sesión -->
+      <button type="submit" 
+              class="btn btn-primary w-full"
+              [disabled]="loginForm.invalid">
+        Iniciar sesión
+      </button>
+
+      <!-- Enlace de registro -->
+      <p class="text-center text-sm mt-6">
+        ¿No tienes una cuenta?
+        <a routerLink="/register" class="link link-primary hover:link-secondary transition-colors ml-1">
+          Regístrate aquí
+        </a>
+      </p>
+    </form>
+  </div>
+</div>

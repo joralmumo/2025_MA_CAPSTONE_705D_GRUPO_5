@@ -1,0 +1,299 @@
+/* ===== NAVBAR HEADER ===== */
+.navbar-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid oklch(90% 0.01 264.542);
+}
+
+/* Logo mejorado */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logo-container:hover {
+  background: oklch(96% 0.003 264.542);
+}
+
+.logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 1.125rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, oklch(69% 0.17 162.48) 0%, oklch(55% 0.046 257.417) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.025em;
+}
+
+/* Botón del menú móvil */
+.menu-toggle-btn {
+  border-radius: 0.5rem;
+}
+
+/* Links de navegación en el centro */
+.navbar-center-visible {
+  display: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: oklch(45% 0.05 264.542);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  background: oklch(96% 0.003 264.542);
+  color: oklch(69% 0.17 162.48);
+}
+
+.nav-link.active-nav {
+  color: oklch(69% 0.17 162.48);
+  font-weight: 600;
+}
+
+.nav-link.active-nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  height: 2px;
+  background: oklch(69% 0.17 162.48);
+  border-radius: 2px;
+}
+
+/* Mostrar links en desktop */
+@media (min-width: 1024px) {
+  .navbar-center-visible {
+    display: flex;
+  }
+}
+
+/* ===== PERFIL EN HEADER ===== */
+.user-profile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  background: oklch(96% 0.003 264.542);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+
+.user-profile-link:hover {
+  background: oklch(92% 0.006 264.531);
+  border-color: oklch(69% 0.17 162.48);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-circle-small {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, oklch(69% 0.17 162.48) 0%, oklch(55% 0.046 257.417) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.avatar-initials-small {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.user-name-header {
+  color: oklch(21% 0.034 264.665);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* ===== Botones registro y login ===== */
+.btn-register-header,
+.btn-login-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+}
+
+/* Iconos SVG dentro de los botones */
+.btn-register-header .btn-icon,
+.btn-login-header .btn-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.btn-register-header:hover .btn-icon,
+.btn-login-header:hover .btn-icon {
+  transform: scale(1.1);
+}
+
+/* Registrarse */
+.btn-register-header {
+  background: transparent;
+  color: oklch(40% 0.08 264.542);
+  border-color: oklch(75% 0.02 264.542);
+}
+
+.btn-register-header:hover {
+  background: oklch(95% 0.01 264.542);
+  border-color: oklch(69% 0.17 162.48);
+  color: oklch(69% 0.17 162.48);
+}
+
+.btn-register-header:active {
+  background: oklch(92% 0.02 264.542);
+}
+
+/* Iniciar Sesión */
+.btn-login-header {
+  background: oklch(69% 0.17 162.48);
+  color: white;
+}
+
+.btn-login-header:hover {
+  background: oklch(64% 0.19 162.48);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-login-header:active {
+  background: oklch(60% 0.2 162.48);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive - ocultar nombre en pantallas pequeñas */
+@media (max-width: 640px) {
+  .user-name-header {
+    display: none;
+  }
+  
+  .user-profile-link {
+    padding: 0.5rem;
+  }
+
+  /* Botoncitos compáctos */
+  .btn-register-header,
+  .btn-login-header {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    gap: 0.375rem;
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+
+  .btn-register-header .btn-icon,
+  .btn-login-header .btn-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  /* Ocultar texto del logo en móviles */
+  .logo-text {
+    display: none;
+  }
+
+  /* Logo más compacto en móviles */
+  .logo-container {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .logo-img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ===== BOTÓN DE CERRAR SESIÓN ===== */
+/* Botón de cerrar sesión */
+.logout-btn {
+  background: oklch(69% 0.17 162.48) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  transition: none !important;
+  pointer-events: auto !important;
+  border-radius: 0.9rem !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.logout-btn:hover {
+  background: oklch(64% 0.19 162.48) !important;
+  color: white !important;
+  transform: none !important;
+}
+
+.logout-btn:active {
+  background: oklch(60% 0.17 162.48) !important;
+  opacity: 0.9;
+}
+
+/* Separador */
+.menu li hr {
+  opacity: 0.3;
+  margin: 0.5rem 0;
+}
+
+/* Iconos en el menú con espacio */
+.menu li a {
+  transition: all 0.2s ease;
+}
+
+.menu li a:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu li a.active {
+  background: oklch(69% 0.17 162.48);
+  color: white;
+}
+
+/* Quitar hover del botón de logout */
+.logout-btn:hover {
+  transform: none !important;
+}
