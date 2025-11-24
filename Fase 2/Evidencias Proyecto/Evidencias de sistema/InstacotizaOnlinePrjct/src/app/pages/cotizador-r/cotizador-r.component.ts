@@ -103,7 +103,7 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
     this.cotizacionSubscription = this.cotizacionShared.cotizacionSeleccionada$
       .subscribe(cotizacion => {
         if (cotizacion) {
-          console.log('Cotización recibida:', cotizacion);
+          //console.log('Cotización recibida:', cotizacion);
           this.cargarDatosEnFormulario(cotizacion);
           // Limpiar después de cargar
           this.cotizacionShared.clearCotizacionSeleccionada();
@@ -126,9 +126,9 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
     try {
       const formData = this.form.value;
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(formData));
-      console.log('Borrador guardado automáticamente');
+      //console.log('Borrador guardado automáticamente');
     } catch (error) {
-      console.error('Error al guardar borrador:', error);
+      //console.error('Error al guardar borrador:', error);
     }
   }
 
@@ -137,17 +137,17 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
       const savedData = localStorage.getItem(this.STORAGE_KEY);
       if (savedData) {
         const parsedData = JSON.parse(savedData);
-        console.log('Cargando borrador guardado:', parsedData);
+        //console.log('Cargando borrador guardado:', parsedData);
         this.cargarDatosEnFormulario(parsedData);
       }
     } catch (error) {
-      console.error('Error al cargar borrador:', error);
+      //console.error('Error al cargar borrador:', error);
     }
   }
 
   limpiarBorrador() {
     localStorage.removeItem(this.STORAGE_KEY);
-    console.log('Borrador eliminado');
+    //console.log('Borrador eliminado');
   }
 
   title = 'COTIZADOR DE INSTACOTIZA';
@@ -184,13 +184,13 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
 
   //METODOS DE ICTZ-ONLINE (GUARDAR Y CARGAR COTIZACION)
   guardarCotizacion() {
-    console.log('Guardando cotización en la base de datos...');
+    //console.log('Guardando cotización en la base de datos...');
     if (this.form.valid) {
       const formData = this.form.value;
       const userId = sessionStorage.getItem('id')
       if (!userId){
         alert('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
-        console.log('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
+        //console.log('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
         return;
       }
 

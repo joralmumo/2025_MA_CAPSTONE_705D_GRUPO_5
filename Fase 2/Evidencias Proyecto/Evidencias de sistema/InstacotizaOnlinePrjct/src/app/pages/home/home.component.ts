@@ -16,6 +16,10 @@ export class HomeComponent implements AfterViewInit {
     this.checkScroll();
   }
 
+  isLoggedIn(): boolean {
+    return sessionStorage.getItem('ingresado') === 'true';
+  }
+
   async scrollToTop() {
     // Se remueven las clases de animación
     const animatedElements = document.querySelectorAll('.animate-on-scroll, .stagger-animation > *');

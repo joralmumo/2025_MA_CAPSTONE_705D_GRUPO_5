@@ -2,5 +2,5 @@
 
 export const environment = {
   production: true,
-  apiUrl: '' //poner aca la url de vercel
+  apiUrl: 'https://instacotizabackend.onrender.com/api' //poner aca la url de vercel
 };

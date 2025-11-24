@@ -53,11 +53,12 @@ export class LoginComponent{
             sessionStorage.setItem('rol', user.rol);
             sessionStorage.setItem('ingresado', 'true');
             this.router.navigateByUrl('/cotizador-r');
+            sessionStorage.removeItem('token')
           } else {
             alert('Credenciales inválidas');
           }
         },
-        error: () => alert('Error en el servidor')
+        error: () => alert('Contraseña incorrecta o el usuario no existe.')
       });
     }
   }

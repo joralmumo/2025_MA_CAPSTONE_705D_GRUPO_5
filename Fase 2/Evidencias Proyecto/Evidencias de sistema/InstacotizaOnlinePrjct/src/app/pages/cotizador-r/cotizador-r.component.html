@@ -6,7 +6,7 @@
     <button type="button" (click)="exportar_cotizacion()" class="btn btn-outline btn-sm">Exportar Plantilla</button>
     <button type="button" (click)="sobreescribirCotizacion()" class="btn btn-accent btn-sm">Sobreescribir Cotización</button>
     <button type="button" (click)="guardarCotizacion()" class="btn btn-success btn-sm">Guardar Cotizacion</button>
-    <button type="button" (click)="limpiarFormulario()" class="btn btn-error btn-sm">Limpiar Formulario</button>
+    <button type="button" (click)="limpiarFormulario()" class="btn btn-error btn-sm">Limpiar Cotización</button>
 
   </div>
   <div class="form-control">
@@ -153,15 +153,15 @@
 
   <!-- Productos -->
   <div class="bg-base-200 p-4 rounded-lg shadow space-y-3">
-    <h2 class="text-lg font-bold">PRODUCTOS</h2>
+    <h2 class="text-lg font-bold">PRODUCTOS / SERVICIOS</h2>
     <div class="flex flex-col gap-2">
-      <span class="text-sm">total productos: {{productosArray.length}}</span>
+      <span class="text-sm">Total de Prod. / Serv.: {{productosArray.length}}</span>
       <button
         type="button"
         (click)="addProduct()"
         class="btn btn-primary btn-sm w-fit"
       >
-        Agregar Producto
+        Agregar
       </button>
       <div class="overflow-x-auto">
         <table class="table table-zebra w-full text-sm">

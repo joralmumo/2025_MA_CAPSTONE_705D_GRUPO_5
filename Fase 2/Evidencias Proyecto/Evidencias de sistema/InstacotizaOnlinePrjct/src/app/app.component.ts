@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
+import { inject as injectAnalytics } from '@vercel/analytics';
 
+injectAnalytics();
 
 @Component({
   selector: 'app-root',

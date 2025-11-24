@@ -48,13 +48,13 @@ export class RegisterComponent {
   }
 
   Enviar() {
-    console.log("REGISTRANDO USUARIO...!");
+    //console.log("REGISTRANDO USUARIO...!");
     
     if (this.registerForm.valid) {
       this.authService.GetUserById(this.registerForm.value.correo).subscribe({
         next: (resp) => {
           this.usuarioData = resp;
-          console.log(this.usuarioData);
+          //console.log(this.usuarioData);
           
           if (this.usuarioData.length > 0) {
             alert("El correo ya se encuentra registrado");
@@ -71,13 +71,13 @@ export class RegisterComponent {
 
             this.apiCrud.crearUsuario(this.newUsuario).subscribe({
               next: (response) => {
-                console.log('Usuario registrado:', response);
+                //console.log('Usuario registrado:', response);
                 alert("Usuario registrado exitosamente");
                 this.registerForm.reset();
                 this.router.navigateByUrl('/login');
               },
               error: (error) => {
-                console.error('Error:', error);
+                //console.error('Error:', error);
                 alert("Error al registrar usuario");
               }
             });

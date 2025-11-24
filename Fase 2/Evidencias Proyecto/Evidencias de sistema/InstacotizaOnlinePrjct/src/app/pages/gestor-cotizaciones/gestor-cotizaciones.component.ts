@@ -49,7 +49,7 @@ export class GestorCotizacionesComponent implements OnInit {
   }
 
   cargarCotizaciones() {
-    console.log('Cargando cotizaciones del usuario...');
+    //console.log('Cargando cotizaciones del usuario...');
     this.isLoading = true;
     this.error = null;
 
@@ -85,10 +85,10 @@ export class GestorCotizacionesComponent implements OnInit {
             moneda: cot.moneda || 'CLP',
             productos: cot.productos || []
           }));
-          console.log('Cotizaciones cargadas:', this.cotizaciones);
+          //console.log('Cotizaciones cargadas:', this.cotizaciones);
         } else {
           this.cotizaciones = [];
-          console.log('No se encontraron cotizaciones para este usuario');
+          //console.log('No se encontraron cotizaciones para este usuario');
         }
       },
       error: (error) => {
@@ -122,14 +122,14 @@ export class GestorCotizacionesComponent implements OnInit {
 
     this.apiCrud.eliminarCotizacion(userId, index).subscribe({
       next: (response) => {
-        console.log('Cotización eliminada exitosamente:', response);
+        //console.log('Cotización eliminada exitosamente:', response);
         this.cotizaciones.splice(index, 1);
         alert(`Cotización "${cotizacion.nro_cotizacion}" eliminada exitosamente.`);
         this.isLoading = false;
         this.recargarCotizaciones(); 
       },
       error: (error) => {
-        console.error('Error al eliminar cotización:', error);
+        //console.error('Error al eliminar cotización:', error);
         this.isLoading = false;
         
         // debugging, errores específicos

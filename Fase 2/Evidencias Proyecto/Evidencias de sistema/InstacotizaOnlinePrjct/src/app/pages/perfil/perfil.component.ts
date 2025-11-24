@@ -47,12 +47,12 @@ export class PerfilComponent {
       next: (response) => {
         if (response && response.length > 0) {
           this.usuario = response[0];
-          console.log('Usuario cargado:', this.usuario);
+          //console.log('Usuario cargado:', this.usuario);
         }
         this.cargando = false;
       },
       error: (error) => {
-        console.error('Error al cargar el perfil:', error);
+        //console.error('Error al cargar el perfil:', error);
         this.cargando = false;
       }
     });
