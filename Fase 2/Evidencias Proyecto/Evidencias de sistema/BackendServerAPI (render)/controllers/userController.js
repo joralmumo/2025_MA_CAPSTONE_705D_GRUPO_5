@@ -1,5 +1,161 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const { sendWelcomeEmail, sendPasswordResetCode } = require('../services/emailService');
+
+// Recuperar contraseña!!
+exports.solicitarCodigoRecuperacion = async (req, res) => {
+  try {
+    const { correo } = req.body;
+
+    // Buscar usuario
+    const user = await User.findOne({ correo });
+    
+    if (!user) {
+      return res.json({
+        success: true,
+        message: 'Si el correo existe, recibirás un código de recuperación'
+      });
+    }
+
+    // Se genera el codigo de 4 digitos pq 6 no funcionó la weá
+    const resetCode = Math.floor(1000 + Math.random() * 9000).toString();
+    
+    // Establecer expiración en 15 minutos
+    const resetCodeExpiry = new Date(Date.now() + 15 * 60 * 1000);
+
+    // Guardar código y expiración
+    user.resetCode = resetCode;
+    user.resetCodeExpiry = resetCodeExpiry;
+    await user.save();
+
+    // Enviar email con el código
+    sendPasswordResetCode(user.nombre, user.correo, resetCode).catch(err => {
+      console.error('⚠️ Error al enviar código de recuperación:', err);
+    });
+
+    res.json({
+      success: true,
+      message: 'Si el correo existe, recibirás un código de recuperación'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor',
+      error: error.message
+    });
+  }
+};
+
+// Verificar código de recuperación
+exports.verificarCodigoRecuperacion = async (req, res) => {
+  try {
+    const { correo, codigo } = req.body;
+
+    const user = await User.findOne({ correo });
+
+    if (!user || !user.resetCode || !user.resetCodeExpiry) {
+      return res.status(400).json({
+        success: false,
+        message: 'Código inválido o expirado'
+      });
+    }
+
+    // Verificar si el código ha expirado
+    if (new Date() > user.resetCodeExpiry) {
+      // Limpiar código expirado
+      user.resetCode = null;
+      user.resetCodeExpiry = null;
+      await user.save();
+
+      return res.status(400).json({
+        success: false,
+        message: 'El código ha expirado. Solicita uno nuevo'
+      });
+    }
+
+    // Verificar si el código calza
+    if (user.resetCode !== codigo) {
+      return res.status(400).json({
+        success: false,
+        message: 'Código incorrecto'
+      });
+    }
+
+    // Código válido
+    res.json({
+      success: true,
+      message: 'Código verificado correctamente',
+      userId: user._id // Para usar en el siguiente paso
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor',
+      error: error.message
+    });
+  }
+};
+
+// Cambiar contraseña con código validado
+exports.cambiarContrasenaConCodigo = async (req, res) => {
+  try {
+    const { correo, codigo, nuevaContrasena } = req.body;
+
+    const user = await User.findOne({ correo });
+
+    if (!user || !user.resetCode || !user.resetCodeExpiry) {
+      return res.status(400).json({
+        success: false,
+        message: 'Código inválido o expirado'
+      });
+    }
+
+    // Verificar expiración
+    if (new Date() > user.resetCodeExpiry) {
+      user.resetCode = null;
+      user.resetCodeExpiry = null;
+      await user.save();
+
+      return res.status(400).json({
+        success: false,
+        message: 'El código ha expirado'
+      });
+    }
+
+    // Verificar código
+    if (user.resetCode !== codigo) {
+      return res.status(400).json({
+        success: false,
+        message: 'Código incorrecto'
+      });
+    }
+
+    // Validar nueva contraseña
+    if (!nuevaContrasena || nuevaContrasena.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'La contraseña debe tener al menos 6 caracteres'
+      });
+    }
+
+    // Actualizar contraseña (el hook pre-save la hashea de una asi que tamos pulento)
+    user.contrasena = nuevaContrasena;
+    user.resetCode = null; 
+    user.resetCodeExpiry = null;
+    await user.save();
+
+    res.json({
+      success: true,
+      message: 'Contraseña actualizada exitosamente'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error del servidor',
+      error: error.message
+    });
+  }
+};
 
 // Registro
 exports.register = async (req, res) => {
@@ -23,6 +179,11 @@ exports.register = async (req, res) => {
         });
 
         await user.save();
+
+        // manda el mail de bienvenida
+        sendWelcomeEmail(nombre, correo).catch(err => {
+          console.error('⚠️ Error al enviar email (usuario creado exitosamente):', err);
+        });
 
         res.status(201).json({
             success: true,

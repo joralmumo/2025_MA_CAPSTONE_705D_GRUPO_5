@@ -24,6 +24,7 @@ import { saveAs } from 'file-saver';
 import { DecimalPipe } from '@angular/common';
 import { jsPDF } from 'jspdf';
 import {autoTable} from 'jspdf-autotable';
+import { toast } from 'ngx-sonner';
 
 declare module 'jspdf' {
   interface jsPDF {
@@ -41,7 +42,7 @@ interface Producto {
 }
 
 type productForm = FormGroup<{
-  producto: FormControl<Producto | null>;
+  producto: FormControl<string>;
   descripcion: FormControl<string>;
   unidad: FormControl<string>;
   cantidad: FormControl<number>;
@@ -87,52 +88,37 @@ export class CotizadorComponent {
   exportar_cotizacion() {
     console.log('Exportando cotización como plantilla...');
     
-    if (this.form.valid) {
-      // sacar todos los datos del formulario
-      const formData = this.form.value;
+    const formData = this.form.value;
+    const datosParaExportar = { ...formData };
+    delete datosParaExportar.logo;
 
-      // saco el logo porque da error la cuestion
-      const datosParaExportar = { ...formData};
-      delete datosParaExportar.logo;
+    const plantilla = {
+      nombre_plantilla: `Cotización_${formData.nro_cotizacion || 'Sin_Numero'}_Template`,
+      fecha_creacion: new Date().toISOString(),
+      version: '1.0',
+      datos: datosParaExportar
+    };
 
-      // creo objeto de plantilla con metadatos
-      const plantilla = {
-        nombre_plantilla: `Cotización_${formData.nro_cotizacion || 'Template'}`,
-        fecha_creacion: new Date().toISOString(),
-        version: '1.0',
-        datos: formData
-      };
-      
-      // Convertir a JSON
-      const jsonString = JSON.stringify(plantilla, null, 2);
-      
-      // Crear blob y descargar
-      const blob = new Blob([jsonString], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      
-      // Crear elemento de descarga
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `plantilla_cotizacion_${formData.nro_cotizacion || new Date().getTime()}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      
-      // Limpiar URL
-      URL.revokeObjectURL(url);
-      
-      console.log('Plantilla exportada exitosamente');
-      alert('Plantilla exportada exitosamente');
-      
-    } else {
-      console.log('Formulario inválido - No se puede exportar');
-      alert('Por favor, complete todos los campos antes de exportar la plantilla');
-    }
+    const jsonString = JSON.stringify(plantilla, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `plantilla_cotizacion_${formData.nro_cotizacion || 'borrador'}_${new Date().getTime()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+
+    console.log('Plantilla exportada exitosamente');
+    toast.success('Plantilla exportada exitosamente', {
+      style: { background: '#8b5cf6', color: 'white' }
+    });
   }
-
-  importar_cotizacion() {
-    console.log('Importando cotización desde plantilla...');
-    
+  //sin toasts... sepa dios por qué no funcionan aquí
+  importar_cotizacion() {   
     // input file oculto
     const input = document.createElement('input');
     input.type = 'file';
@@ -152,22 +138,21 @@ export class CotizadorComponent {
             // Validar estructura de la plantilla
             if (this.validarEstructuraPlantilla(plantillaData)) {
               this.cargarDatosEnFormulario(plantillaData.datos);
-              console.log('Plantilla importada exitosamente');
-              alert('Plantilla importada exitosamente');
+              toast.success('Plantilla importada y datos cargados en el formulario');
             } else {
               console.error('Estructura de plantilla inválida');
-              alert('El archivo JSON no tiene la estructura correcta de una plantilla de cotización');
+              toast.error('Estructura de plantilla inválida. Verifique el archivo.');
             }
             
           } catch (error) {
             console.error('Error al parsear JSON:', error);
-            alert('Error al leer el archivo JSON. Verifique que el archivo sea válido.');
+            toast.error('Error al leer el archivo JSON. Asegúrese de que sea un archivo válido.');
           }
         };
         
         reader.readAsText(file);
       } else {
-        alert('Por favor, seleccione un archivo JSON válido');
+        toast.error('Por favor seleccione un archivo válido');
       }
       
       // Limpiar input
@@ -216,7 +201,7 @@ export class CotizadorComponent {
       return false;
     }
     
-    // Verificar estructura de prodyuctos
+    // Verificar estructura de productos
     for (const producto of datos.productos) {
       const camposProducto = ['producto', 'descripcion', 'unidad', 'cantidad', 'valorUnitario'];
       for (const campo of camposProducto) {
@@ -273,11 +258,11 @@ export class CotizadorComponent {
       if (datos.productos && datos.productos.length > 0) {
         datos.productos.forEach((producto: any) => {
           const productoForm = this.formBuilder.group({
-            producto: this.formBuilder.control(producto.producto || '', Validators.required),
-            descripcion: this.formBuilder.control(producto.descripcion || '', Validators.required),
-            unidad: this.formBuilder.control(producto.unidad || '', Validators.required),
-            cantidad: this.formBuilder.control(producto.cantidad || 0, [Validators.required, Validators.min(0)]),
-            valorUnitario: this.formBuilder.control(producto.valorUnitario || 0, [Validators.required, Validators.min(0)])
+            producto: this.formBuilder.control(producto.producto || '', ),
+            descripcion: this.formBuilder.control(producto.descripcion || '', ),
+            unidad: this.formBuilder.control(producto.unidad || '', ),
+            cantidad: this.formBuilder.control(producto.cantidad || 0, [Validators.min(0)]),
+            valorUnitario: this.formBuilder.control(producto.valorUnitario || 0, [Validators.min(0)])
           });
           
           this.productosArray.push(productoForm);
@@ -298,33 +283,33 @@ export class CotizadorComponent {
   //MÉTODOS DEL FORMULARIO!
 
   form: Form = this.formBuilder.group({
-    nro_cotizacion: this.formBuilder.control('', Validators.required),
-    nombre_empresa: this.formBuilder.control('', Validators.required),
-    telefono_empresa: this.formBuilder.control('', [Validators.required, Validators.pattern('^[0-9]+$')]),
-    rut_empresa: this.formBuilder.control('', Validators.required),
-    email_empresa: this.formBuilder.control('', [Validators.required, Validators.email]),
-    direccion_empresa: this.formBuilder.control('', Validators.required),
+    nro_cotizacion: this.formBuilder.control('', ),
+    nombre_empresa: this.formBuilder.control('', ),
+    telefono_empresa: this.formBuilder.control('', [Validators.pattern('^[0-9]+$')]),
+    rut_empresa: this.formBuilder.control('', ),
+    email_empresa: this.formBuilder.control('', [Validators.email]),
+    direccion_empresa: this.formBuilder.control('', ),
     productos: this.formBuilder.array<productForm>([this.createProductForm()]),
-    nombre_cliente: this.formBuilder.control('', Validators.required),
-    obra_cliente: this.formBuilder.control('', Validators.required),
-    contacto_cliente: this.formBuilder.control('', Validators.required),
-    email_cliente: this.formBuilder.control('', [Validators.required, Validators.email]),
-    direccion_cliente: this.formBuilder.control('', Validators.required),
-    fecha: this.formBuilder.control('', Validators.required),
-    validez_oferta: this.formBuilder.control('', Validators.required),
-    forma_pago: this.formBuilder.control('', Validators.required),
-    presupuesto_incluye: this.formBuilder.control('', Validators.required),
-    moneda: this.formBuilder.control('CLP', Validators.required),
+    nombre_cliente: this.formBuilder.control('', ),
+    obra_cliente: this.formBuilder.control('', ),
+    contacto_cliente: this.formBuilder.control('', ),
+    email_cliente: this.formBuilder.control('', [Validators.email]),
+    direccion_cliente: this.formBuilder.control('', ),
+    fecha: this.formBuilder.control('', ),
+    validez_oferta: this.formBuilder.control('', ),
+    forma_pago: this.formBuilder.control('', ),
+    presupuesto_incluye: this.formBuilder.control('', ),
+    moneda: this.formBuilder.control('CLP', ),
     logo: this.formBuilder.control<File | null>(null)
   });
 
   createProductForm(): productForm {
     return this.formBuilder.group({
-      producto: this.formBuilder.control<Producto | null>(null, Validators.required),
-      descripcion: this.formBuilder.control('', Validators.required),
-      unidad: this.formBuilder.control('', Validators.required),
-      cantidad: this.formBuilder.control(0, [Validators.required, Validators.min(0)]),
-      valorUnitario: this.formBuilder.control(0, [Validators.required, Validators.min(0)]),
+      producto: this.formBuilder.control('', ),
+      descripcion: this.formBuilder.control('', ),
+      unidad: this.formBuilder.control('', ),
+      cantidad: this.formBuilder.control(0, [Validators.min(0)]),
+      valorUnitario: this.formBuilder.control(0, [Validators.min(0)]),
     });
   }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-login',
@@ -54,11 +55,12 @@ export class LoginComponent{
             sessionStorage.setItem('ingresado', 'true');
             this.router.navigateByUrl('/cotizador-r');
             sessionStorage.removeItem('token')
+            toast.success('Sesión Iniciada');
           } else {
-            alert('Credenciales inválidas');
+            toast.error('Credenciales inválidas');
           }
         },
-        error: () => alert('Contraseña incorrecta o el usuario no existe.')
+        error: () => toast.error('El usuario no existe o sus credenciales son incorrectas')
       });
     }
   }

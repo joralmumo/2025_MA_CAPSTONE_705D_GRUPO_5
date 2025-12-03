@@ -17,10 +17,26 @@
       <h1 class="text-2xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
         Crear cuenta
       </h1>
-      <p class="text-base-content/60 mt-2">
-        Únete a nuestra comunidad
-      </p>
     </div>
+
+    <!-- Mensajes de éxito y error -->
+    @if (showSuccessMessage) {
+      <div class="alert alert-success mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>¡Bienvenido! Tu cuenta ha sido creada exitosamente. Se te ha enviado un correo de confirmación. Si no lo ves, revisa el spam.</span>
+      </div>
+    }
+
+    @if (errorMessage) {
+      <div class="alert alert-error mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l-2-2m0 0l-2-2m2 2l2-2m-2 2l-2 2m2-2l2 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{ errorMessage }}</span>
+      </div>
+    }
 
     <!-- Formulario -->
     <form [formGroup]="registerForm" (ngSubmit)="Enviar()" class="space-y-6">
@@ -97,11 +113,39 @@
         }
       </div>
 
+      <!-- Campo de confirmar contraseña -->
+      <div class="form-control">
+        <label class="label">
+          <span class="label-text font-medium">Confirmar contraseña</span>
+        </label>
+        <input type="password" 
+               formControlName="confirmPassword"
+               placeholder="••••••••"
+               class="input input-bordered w-full bg-base-200/50 focus:bg-base-200 transition-colors"
+               [class.input-error]="(registerForm.get('confirmPassword')?.invalid || registerForm.errors?.['passwordMismatch']) && registerForm.get('confirmPassword')?.touched"/>
+        @if ((registerForm.get('confirmPassword')?.invalid || registerForm.errors?.['passwordMismatch']) && registerForm.get('confirmPassword')?.touched) {
+          <label class="label">
+            <span class="label-text-alt text-error">
+              @if (registerForm.get('confirmPassword')?.errors?.['required']) {
+                Confirma tu contraseña
+              } @else if (registerForm.errors?.['passwordMismatch']) {
+                Las contraseñas no coinciden
+              }
+            </span>
+          </label>
+        }
+      </div>
+
       <!-- Botón de registro -->
       <button type="submit" 
               class="btn btn-secondary w-full"
-              [disabled]="registerForm.invalid">
-        Crear cuenta
+              [disabled]="registerForm.invalid || isSubmitting">
+        @if (isSubmitting) {
+          <span class="loading loading-spinner loading-sm"></span>
+          Registrando...
+        } @else {
+          Crear cuenta
+        }
       </button>
 
       <!-- Enlace de login -->

@@ -249,51 +249,112 @@
   }
 }
 
-/* ===== BOTÓN DE CERRAR SESIÓN ===== */
-/* Botón de cerrar sesión */
-.logout-btn {
-  background: oklch(69% 0.17 162.48) !important;
-  color: white !important;
-  font-weight: 600 !important;
-  transition: none !important;
-  pointer-events: auto !important;
-  border-radius: 0.9rem !important;
-  padding: 0.5rem 1rem !important;
+/* ===== SIDEBAR STYLING ===== */
+/* Sidebar mejorada */
+.drawer-side .menu {
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
 }
 
-.logout-btn:hover {
-  background: oklch(64% 0.19 162.48) !important;
-  color: white !important;
-  transform: none !important;
+/* Logo container en sidebar */
+.drawer-side .menu .flex.items-center {
+  padding: 1rem 0.5rem 0.5rem;
+  border-bottom: 1px solid oklch(90% 0.01 264.542);
+  margin-bottom: 0.5rem;
 }
 
-.logout-btn:active {
-  background: oklch(60% 0.17 162.48) !important;
+/* Links del menú */
+.menu li a {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: oklch(40% 0.08 264.542);
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu li a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: oklch(69% 0.17 162.48);
+  transform: scaleY(0);
+  transition: transform 0.25s ease;
+}
+
+.menu li a:hover {
+  background: oklch(96% 0.003 264.542);
+  color: oklch(69% 0.17 162.48);
+  transform: translateX(2px);
+}
+
+.menu li a:hover::before {
+  transform: scaleY(1);
+}
+
+.menu li a.active {
+  background: linear-gradient(90deg, oklch(69% 0.17 162.48) 0%, oklch(64% 0.19 162.48) 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu li a.active::before {
+  transform: scaleY(1);
+}
+
+/* Iconos SVG en menú */
+.menu li a svg {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
   opacity: 0.9;
+}
+
+.menu li a:hover svg {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.menu li a.active svg {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(0, 128, 0, 0.3));
 }
 
 /* Separador */
 .menu li hr {
-  opacity: 0.3;
-  margin: 0.5rem 0;
+  opacity: 0.15;
+  margin: 0.75rem 0;
+  border-color: oklch(85% 0.02 264.542);
 }
 
-/* Iconos en el menú con espacio */
-.menu li a {
-  transition: all 0.2s ease;
+/* ===== BOTÓN DE CERRAR SESIÓN ===== */
+.logout-btn {
+  background: linear-gradient(135deg, oklch(69% 0.17 162.48) 0%, oklch(64% 0.19 162.48) 100%) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  transition: all 0.25s ease !important;
+  pointer-events: auto !important;
+  border-radius: 0.75rem !important;
+  padding: 0.625rem 1rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.menu li a:hover {
-  transform: translateX(4px);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.menu li a.active {
-  background: oklch(69% 0.17 162.48);
-  color: white;
-}
-
-/* Quitar hover del botón de logout */
 .logout-btn:hover {
-  transform: none !important;
+  background: linear-gradient(135deg, oklch(64% 0.19 162.48) 0%, oklch(60% 0.2 162.48) 100%) !important;
+  color: white !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.logout-btn:active {
+  background: oklch(60% 0.17 162.48) !important;
+  transform: translateY(0) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.logout-btn svg {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.2));
 }

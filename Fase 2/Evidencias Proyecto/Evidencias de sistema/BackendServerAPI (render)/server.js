@@ -1,4 +1,3 @@
-//server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,7 +6,7 @@ require('dotenv').config();
 const userRoutes = require('./routes/userRoutes');
 const app = express();
 
-// Lista de origenes permitidos
+// Lista de orígenes permitidos
 const allowedOrigins = [
     'http://localhost:4200',
     'https://instacotiza-online-dlx.vercel.app',
@@ -24,7 +23,7 @@ const corsOptions = {
         if (allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
-            console.log(`CORS bloqueado: ${origin}`);
+            console.log(`❌ CORS bloqueado: ${origin}`);
             callback(new Error('CORS error'), false);
         }
     },

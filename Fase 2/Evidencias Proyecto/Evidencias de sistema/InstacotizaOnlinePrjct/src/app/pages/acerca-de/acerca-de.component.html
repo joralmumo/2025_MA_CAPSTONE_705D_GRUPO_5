@@ -1,130 +1,246 @@
 
 <div class="min-h-screen bg-base-100 p-6">
   <div class="max-w-4xl mx-auto">
-    <div class="hero bg-base-200 rounded-lg mb-8">
-      <div class="hero-content text-center py-12">
-        <div class="max-w-md">
-          <h1 class="text-5xl font-bold text-primary">InstaCotiza</h1>
-          <p class="py-6 text-lg">
-            Una solución rápida y eficiente para generar cotizaciones profesionales
-          </p>
+    <div class="relative text-center mb-12 py-8">
+      <div class="absolute inset-0 flex items-center justify-center opacity-5">
+        <svg class="w-96 h-96" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" class="text-primary" d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,88.5,-0.9C87,14.6,81.4,29.2,73.1,42.3C64.8,55.4,53.8,67,40.4,74.3C27,81.6,11.2,84.6,-4.3,82.6C-19.8,80.6,-35.1,73.6,-48.7,64.8C-62.3,56,-74.2,45.4,-80.5,32.2C-86.8,19,-87.5,3.2,-84.7,-11.5C-81.9,-26.2,-75.6,-39.8,-66.2,-51.7C-56.8,-63.6,-44.3,-73.8,-30.5,-81.5C-16.7,-89.2,-1.6,-94.4,12.8,-92.8C27.2,-91.2,30.6,-83.6,44.7,-76.4Z" transform="translate(100 100)" />
+        </svg>
+      </div>
+      <div class="relative">
+        <div class="flex justify-center items-center mb-3 animate-fade-in">
+          <img src="https://i.imgur.com/DMOvStN.png" alt="InstaCotiza Logo" class="h-12 md:h-16 w-auto" draggable="false" />
+        </div>
+        <div class="w-24 h-1 bg-gradient-to-r from-primary via-secondary to-accent mx-auto mb-4 rounded-full"></div>
+        <p class="text-base text-base-content/70 leading-relaxed max-w-2xl mx-auto">
+          Genera cotizaciones profesionales para obras civiles de manera rápida y sencilla
+        </p>
+      </div>
+    </div>
+
+
+    <div class="grid lg:grid-cols-5 gap-6 mb-8">
+      <!-- Nuestra Misión -->
+      <div class="lg:col-span-3">
+        <div class="card bg-base-100 shadow-lg border border-base-300 h-full hover:shadow-xl transition-all duration-300">
+          <div class="card-body p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h2 class="text-xl font-bold text-primary">Nuestra Misión</h2>
+            </div>
+            <div class="space-y-3">
+              <p class="text-sm text-base-content/80 leading-relaxed">
+                InstaCotiza es un <span class="font-semibold text-primary">generador de cotizaciones multirubro</span> desarrollado por <span class="font-semibold text-secondary">Team Dynamite</span> como proyecto de titulación.
+              </p>
+              <div class="divider my-2"></div>
+              <div class="flex items-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="text-sm text-base-content/70">
+                  Ayudar a crear cotizaciones de manera <span class="font-medium text-accent">rápida y sencilla</span>
+                </p>
+              </div>
+              <div class="flex items-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="text-sm text-base-content/70">
+                  Uso versátil en <span class="font-medium text-accent">dispositivos móviles y de escritorio</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Imagen de Misión -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center justify-center h-full p-4 " >
+          <img src="https://i.imgur.com/X4cEQoo.png" 
+               alt="Visualización de InstaCotiza" 
+               class="w-full h-auto object-contain max-h-64 lg:max-h-80 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300" 
+               draggable="false" />
         </div>
       </div>
     </div>
 
 
-    <div class="grid md:grid-cols-1 gap-6 mb-8">
-      <div class="card bg-base-200 shadow-xl">
-        <div class="card-body">
-          <h2 class="card-title text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-            Nuestra Misión
-          </h2>
-          <p>
-            Instacotiza es un generador de cotizaciones multirubro creado y diseñado por Team Dynamite como proyecto de titulación. 
-            <br />
-La aplicación busca ayudar principalmente a pequeñas empresas o personas que busquen realizar cotizaciones de manera rápida en distintos ámbitos laborales de una manera accesible y fácil; permitiendo su uso multiplataforma en móvil y escritorio.
-            <br />
 
 
-          </p>
-        </div>
+    <div class="mb-12">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-3 inline-block relative">
+          <span class="relative z-10">¿Por qué elegir InstaCotiza?</span>
+          <div class="absolute bottom-0 left-0 right-0 h-3 bg-primary/20 -z-0"></div>
+        </h2>
+        <p class="text-sm text-base-content/60">Características que hacen la diferencia</p>
       </div>
-
-
-
-
-    <div class="mb-8">
-      <h2 class="text-3xl font-bold text-center mb-6">¿Por qué elegir InstaCotiza?</h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="card bg-gradient-to-br from-primary to-secondary text-primary-content shadow-xl">
-          <div class="card-body text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            <h3 class="text-xl font-bold">Rápido</h3>
-            <p>Genera cotizaciones en minutos, no en horas</p>
+        <div class="group perspective-card">
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-6 text-primary-content shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Rápido</h3>
+              <p class="text-sm opacity-90">Genera cotizaciones en minutos, no en horas</p>
+            </div>
           </div>
         </div>
 
-        <div class="card bg-gradient-to-br from-secondary to-accent text-secondary-content shadow-xl">
-          <div class="card-body text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
-            </svg>
-            <h3 class="text-xl font-bold">Personalizable</h3>
-            <p>Adapta las cotizaciones a tu marca y necesidades</p>
+        <div class="group perspective-card">
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-accent p-6 text-secondary-content shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Personalizable</h3>
+              <p class="text-sm opacity-90">Adapta las cotizaciones a tu marca y necesidades</p>
+            </div>
           </div>
         </div>
 
-        <div class="card bg-gradient-to-br from-accent to-primary text-accent-content shadow-xl">
-          <div class="card-body text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            <h3 class="text-xl font-bold">Profesional</h3>
-            <p>Resultados que impresionan a tus clientes</p>
+        <div class="group perspective-card">
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent to-primary p-6 text-accent-content shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+            <div class="relative z-10">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold mb-2">Profesional</h3>
+              <p class="text-sm opacity-90">Resultados que impresionan a tus clientes</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Lo que NO hace InstaCotiza-->
+    <div class="mb-12">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-3 inline-block relative">
+          <span class="relative z-10">Alcance y Limitaciones</span>
+          <div class="absolute bottom-0 left-0 right-0 h-3 bg-error/20 -z-0"></div>
+        </h2>
+        <p class="text-sm text-base-content/60">Transparencia sobre lo que InstaCotiza no incluye</p>
+      </div>
+      
+      <div class="space-y-4 mb-6">
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-error/5 to-transparent border-l-4 border-error/50 hover:border-error transition-all duration-300">
+          <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-bold mb-1">Sin vínculos gubernamentales</h3>
+            <p class="text-sm text-base-content/70">No está conectado con el SII ni realiza facturación electrónica oficial</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-error/5 to-transparent border-l-4 border-error/50 hover:border-error transition-all duration-300">
+          <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-bold mb-1">Sin gestión de procesos</h3>
+            <p class="text-sm text-base-content/70">No maneja aprobaciones, rechazos ni flujos de trabajo empresariales</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 p-4 rounded-xl bg-gradient-to-r from-error/5 to-transparent border-l-4 border-error/50 hover:border-error transition-all duration-300">
+          <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-base font-bold mb-1">Sin gestión documental</h3>
+            <p class="text-sm text-base-content/70">No está integrado con sistemas de gestión de documentos empresariales</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/30">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
+        <div class="relative flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="font-bold text-base mb-2">¿Qué es entonces InstaCotiza?</h3>
+            <p class="text-sm text-base-content/70 leading-relaxed">
+              Es una <span class="font-semibold text-primary">herramienta especializada en la generación de cotizaciones</span>, diseñada para simplificar y agilizar la creación de documentos comerciales profesionales para el rubro de las obras civiles.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="mb-8">
-      <h2 class="text-3xl font-bold text-center mb-6">Nuestro Equipo</h2>
-      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-        <div class="card bg-base-200 shadow-xl">
-          <div class="card-body text-center">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold mb-2">Nuestro Equipo</h2>
+        <p class="text-sm text-base-content/60">Los desarrolladores detrás de InstaCotiza</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div class="card bg-base-100 border border-primary/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+          <div class="card-body text-center p-6">
             <div class="avatar mb-4">
-              <div class="w-24 rounded-full bg-primary">
-                <div class="flex items-center justify-center h-full text-primary-content text-2xl font-bold">
+              <div class="w-24 rounded-full bg-gradient-to-br from-primary to-secondary ring-4 ring-primary/20 group-hover:ring-primary/40 transition-all">
+                <div class="flex items-center justify-center h-full text-white text-2xl font-bold">
                   JM
                 </div>
               </div>
             </div>
-            <h3 class="text-xl font-bold">Jorge Muñoz</h3>
-            <p class="text-base-content/70">Desarrollador Backend</p>
-            <p class="mt-2">Especialista en desarrollo web y experiencia de usuario</p>
+            <h3 class="text-lg font-bold mb-1">Jorge Muñoz</h3>
+            <div class="badge badge-primary badge-sm mb-3">Desarrollador Backend</div>
+            <p class="text-xs text-base-content/60 leading-relaxed">Especialista en desarrollo web y experiencia de usuario</p>
           </div>
         </div>
 
-        <div class="card bg-base-200 shadow-xl">
-          <div class="card-body text-center">
+        <div class="card bg-base-100 border border-secondary/30 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+          <div class="card-body text-center p-6">
             <div class="avatar mb-4">
-              <div class="w-24 rounded-full bg-secondary">
-                <div class="flex items-center justify-center h-full text-secondary-content text-2xl font-bold">
+              <div class="w-24 rounded-full bg-gradient-to-br from-secondary to-accent ring-4 ring-secondary/20 group-hover:ring-secondary/40 transition-all">
+                <div class="flex items-center justify-center h-full text-white text-2xl font-bold">
                   VJ
                 </div>
               </div>
             </div>
-            <h3 class="text-xl font-bold">Valentina Jamett</h3>
-            <p class="text-base-content/70">Desarrolladora Frontend</p>
-            <p class="mt-2">Experta en interfaces modernas y responsive design</p>
+            <h3 class="text-lg font-bold mb-1">Valentina Jamett</h3>
+            <div class="badge badge-secondary badge-sm mb-3">Desarrolladora Frontend</div>
+            <p class="text-xs text-base-content/60 leading-relaxed">Experta en interfaces modernas y responsive design</p>
           </div>
         </div>
       </div>
     </div>
 
 
-    <div class="card bg-base-200 shadow-xl">
-      <div class="card-body text-center">
-        <h2 class="text-2xl font-bold mb-4">¿Tienes preguntas?</h2>
-        <p class="mb-6">Estamos aquí para ayudarte. Contáctanos para más información sobre InstaCotiza.</p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <div class="btn btn-primary btn-outline">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Enviar Email
-          </div>
-           <a class="btn btn-secondary btn-outline" href="https://github.com/joralmumo/InstacotizaOnlineDlx" target="_blank" rel="noopener noreferrer">
-             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
-            </svg>
-              Nuestro GitHub
-          </a>
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 p-8 text-center">
+      <div class="absolute top-0 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+      <div class="relative z-10">
+        <div class="inline-flex items-center justify-center w-14 h-14 mb-4 rounded-2xl bg-gradient-to-br from-primary to-secondary shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
         </div>
       </div>
     </div>

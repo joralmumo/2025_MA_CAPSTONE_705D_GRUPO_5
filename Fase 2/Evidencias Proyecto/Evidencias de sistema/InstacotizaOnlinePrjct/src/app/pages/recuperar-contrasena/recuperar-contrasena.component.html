@@ -1,1 +1,180 @@
-<p>recuperar-contrasena works!</p>
+<div class="min-h-screen flex items-center justify-center">
+  <div class="card w-full max-w-md bg-white shadow">
+    <div class="card-body">
+      <!-- Header -->
+      <div class="text-center mb-6">
+        <h2 class="text-3xl font-bold text-gray-800">Recuperar Contraseña</h2>
+        <p class="text-sm text-gray-600 mt-2">Paso {{ paso }} de 3</p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+        <div class="bg-purple-600 h-2 rounded-full transition-all duration-300" 
+             [style.width.%]="(paso / 3) * 100">
+        </div>
+      </div>
+
+      <!-- Mensajes -->
+      @if (errorMessage) {
+        <div class="alert alert-error mb-4">
+          <span>{{ errorMessage }}</span>
+        </div>
+      }
+
+      @if (successMessage) {
+        <div class="alert alert-success mb-4">
+          <span>{{ successMessage }}</span>
+        </div>
+      }
+
+      <!-- PASO 1: Solicitar Código -->
+      @if (paso === 1) {
+        <form [formGroup]="correoForm" (ngSubmit)="solicitarCodigo()">
+          <div class="form-control mb-4">
+            <label class="label">
+              <span class="label-text font-semibold">Correo Electrónico</span>
+            </label>
+            <input 
+              type="email" 
+              formControlName="correo"
+              placeholder="tu@correo.com" 
+              class="input input-bordered w-full"
+              [class.input-error]="correoForm.get('correo')?.invalid && correoForm.get('correo')?.touched"
+            />
+            @if (correoForm.get('correo')?.invalid && correoForm.get('correo')?.touched) {
+              <label class="label">
+                <span class="label-text-alt text-error">Ingresa un correo válido</span>
+              </label>
+            }
+          </div>
+
+          <button 
+            type="submit" 
+            class="btn btn-success w-full"
+            [disabled]="isSubmitting"
+          >
+            @if (isSubmitting) {
+              <span class="loading loading-spinner"></span>
+            }
+            Enviar Código
+          </button>
+        </form>
+      }
+
+      <!-- PASO 2: Verificar Código -->
+      @if (paso === 2) {
+        <div class="text-center mb-4">
+          <p class="text-sm text-gray-600">
+            Ingresa el código de 4 dígitos enviado a:<br>
+            <strong>{{ correoGuardado }}</strong>
+          </p>
+        </div>
+
+        <form [formGroup]="codigoForm" (ngSubmit)="verificarCodigo()">
+          <div class="form-control mb-4">
+            <label class="label">
+              <span class="label-text font-semibold">Código de Verificación</span>
+            </label>
+            <input 
+              type="text" 
+              formControlName="codigo"
+              placeholder="0000" 
+              maxlength="4"
+              class="input input-bordered w-full text-center text-2xl tracking-widest"
+              [class.input-error]="codigoForm.get('codigo')?.invalid && codigoForm.get('codigo')?.touched"
+            />
+            @if (codigoForm.get('codigo')?.invalid && codigoForm.get('codigo')?.touched) {
+              <label class="label">
+                <span class="label-text-alt text-error">Código debe ser de 4 dígitos</span>
+              </label>
+            }
+          </div>
+
+          <button 
+            type="submit" 
+            class="btn btn-primary w-full mb-2"
+            [disabled]="isSubmitting"
+          >
+            @if (isSubmitting) {
+              <span class="loading loading-spinner"></span>
+            }
+            Verificar Código
+          </button>
+
+          <button 
+            type="button" 
+            class="btn btn-ghost w-full"
+            (click)="volverAPaso(1)"
+          >
+            Volver
+          </button>
+        </form>
+      }
+
+      <!-- PASO 3: Nueva Contraseña -->
+      @if (paso === 3) {
+        <form [formGroup]="contrasenaForm" (ngSubmit)="cambiarContrasena()">
+          <div class="form-control mb-4">
+            <label class="label">
+              <span class="label-text font-semibold">Nueva Contraseña</span>
+            </label>
+            <input 
+              type="password" 
+              formControlName="nuevaContrasena"
+              placeholder="Mínimo 6 caracteres" 
+              class="input input-bordered w-full"
+              [class.input-error]="contrasenaForm.get('nuevaContrasena')?.invalid && contrasenaForm.get('nuevaContrasena')?.touched"
+            />
+            @if (contrasenaForm.get('nuevaContrasena')?.invalid && contrasenaForm.get('nuevaContrasena')?.touched) {
+              <label class="label">
+                <span class="label-text-alt text-error">Mínimo 6 caracteres</span>
+              </label>
+            }
+          </div>
+
+          <div class="form-control mb-4">
+            <label class="label">
+              <span class="label-text font-semibold">Confirmar Contraseña</span>
+            </label>
+            <input 
+              type="password" 
+              formControlName="confirmarContrasena"
+              placeholder="Repite la contraseña" 
+              class="input input-bordered w-full"
+              [class.input-error]="contrasenaForm.errors?.['passwordMismatch'] && contrasenaForm.get('confirmarContrasena')?.touched"
+            />
+            @if (contrasenaForm.errors?.['passwordMismatch'] && contrasenaForm.get('confirmarContrasena')?.touched) {
+              <label class="label">
+                <span class="label-text-alt text-error">Las contraseñas no coinciden</span>
+              </label>
+            }
+          </div>
+
+          <button 
+            type="submit" 
+            class="btn btn-primary w-full"
+            [disabled]="isSubmitting"
+          >
+            @if (isSubmitting) {
+              <span class="loading loading-spinner"></span>
+            }
+            Cambiar Contraseña
+          </button>
+        </form>
+      }
+
+      <!-- Footer -->
+       @if (!isLoggedIn()) {
+            <div class="text-center mt-6">
+                <a routerLink="/login" class="link link-primary text-sm">
+                Volver al inicio de sesión
+                </a>
+            </div>
+       }
+       @else {
+        <span></span>
+       }
+
+    </div>
+  </div>
+</div>

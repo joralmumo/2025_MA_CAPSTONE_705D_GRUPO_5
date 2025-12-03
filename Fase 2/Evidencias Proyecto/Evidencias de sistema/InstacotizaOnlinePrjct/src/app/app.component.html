@@ -51,6 +51,7 @@
     <!-- Contenido principal -->
     <main class="flex-1 object-fit" style="padding: 1%;">
       <router-outlet></router-outlet>
+      <ngx-sonner-toaster position="bottom-right" />
     </main>
 
     <!-- Footer -->
@@ -67,31 +68,36 @@
     <ul class="menu p-4 w-52 min-h-full bg-base-200 text-base-content flex flex-col">
       <!-- Título del sidebar -->
       <div class="flex items-center gap-3 px-2 mb-6">
-        <img src="https://i.imgur.com/LluQHke.png" 
+        <img src="https://i.imgur.com/DMOvStN.png" 
              alt="InstaCotiza" 
-             class="w-8 h-8 rounded-lg"/>
-        <span class="text-lg font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-          InstaCotiza
-        </span>
+             class="h-8 w-auto object-contain"
+             draggable="false"
+             style="pointer-events: none; user-select: none;"/>
       </div>
 
       <!-- Enlaces del menú con mejor espaciado -->
       <li class="mb-1">
         <a routerLink="/home" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
-          <span class="text-lg mr-2">🏠</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
           <span class="font-medium">Home</span>
         </a>
       </li>
       @if (isLoggedIn()) {
         <li class="mb-1">
           <a routerLink="/cotizador-r" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
-            <span class="text-lg mr-2">📝</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
             <span class="font-medium">Cotizador</span>
           </a>
         </li>
         <li class="mb-1">
           <a routerLink="/gestor-cotizaciones" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
-            <span class="text-lg mr-2">📋</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
             <span class="font-medium">Gestor</span>
           </a>
         </li>
@@ -99,7 +105,9 @@
       @else {
         <li class="mb-1">
           <a routerLink="/cotizador" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
-            <span class="text-lg mr-2">📝</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
             <span class="font-medium">Cotizador</span>
           </a>
         </li>
@@ -107,15 +115,28 @@
       @if (isLoggedIn() && isAdmin()) {
         <li class="mb-1">
           <a routerLink="/admin" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
-            <span class="text-lg mr-2">⚙️</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
             <span class="font-medium">Admin</span>
           </a>
         </li>
       }
       <li class="mb-1">
         <a routerLink="/acerca-de" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
-          <span class="text-lg mr-2">ℹ️</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           <span class="font-medium">Acerca de</span>
+        </a>
+      </li>
+      <li class="mb-1">
+        <a routerLink="/instalar-app" routerLinkActive="active" class="flex items-center px-3 py-2.5 hover:bg-base-100 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          </svg>
+          <span class="font-medium">Cómo instalar</span>
         </a>
       </li>
       
@@ -126,7 +147,10 @@
         </li>
         <li>
           <a (click)="cerrarSesion()" class="logout-btn">
-            ⏻ Cerrar Sesión
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Cerrar Sesión
           </a>
         </li>
       }

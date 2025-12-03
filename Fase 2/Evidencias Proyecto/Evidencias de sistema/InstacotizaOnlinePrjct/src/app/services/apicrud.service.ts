@@ -52,4 +52,22 @@ export class ApicrudService{
     actualizarCotizacion(userId: string, nro_cotizacion: string, cotizacion: ICotizacion): Observable<any> {
         return this.http.put(`${environment.apiUrl}/usuarios/${userId}/cotizaciones/${nro_cotizacion}`, cotizacion);
     }
+
+    // Recuperación de contraseña
+    solicitarCodigoRecuperacion(correo: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuarios/solicitar-codigo`, { correo });
+    }
+
+    verificarCodigoRecuperacion(correo: string, codigo: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuarios/verificar-codigo`, { correo, codigo });
+    }
+
+    cambiarContrasenaConCodigo(correo: string, codigo: string, nuevaContrasena: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuarios/cambiar-contrasena`, { 
+        correo, 
+        codigo, 
+        nuevaContrasena 
+    });
+    }
+
 }

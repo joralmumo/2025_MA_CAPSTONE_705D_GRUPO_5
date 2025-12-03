@@ -16,5 +16,9 @@ router.post('/:userId/cotizaciones', userController.agregarCotizacion);
 router.get('/:id', userController.getUserById); 
 router.put('/:userId/cotizaciones-numero', userController.actualizarCotizacionPorNumero);
 
+router.post('/solicitar-codigo', userController.solicitarCodigoRecuperacion);
+router.post('/verificar-codigo', userController.verificarCodigoRecuperacion);
+router.post('/cambiar-contrasena', userController.cambiarContrasenaConCodigo);
+
 
 module.exports = router;

@@ -1,32 +1,52 @@
-<form [formGroup]="form" class="space-y-6 p-4">    
-  <!-- Moneda -->
-  <div class="flex items-center mb-4 gap-2">
-    <h1 class="text-2xl font-bold">Cotizador</h1>
-    <button type="button" (click)="importar_cotizacion()" class="btn btn-outline btn-sm">Importar Plantilla</button>
-    <button type="button" (click)="exportar_cotizacion()" class="btn btn-outline btn-sm">Exportar Plantilla</button>
+<form [formGroup]="form" class="space-y-6 p-4">
+  <!-- Paso 0: ¿Tiene cotización guardada? -->
+  <div class="step-card">
+    <h3 class="step-title">¿Ya tiene una cotización guardada en su dispositivo?</h3>
+    <p class="step-help">Si ya tiene una cotización guardada como archivo JSON, puede cargarla aquí</p>
+    <div class="load-buttons">
+      <button type="button" (click)="importar_cotizacion()" class="load-btn load-btn-pc">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <div>
+          <div class="load-btn-title">Cargar desde mi PC</div>
+          <div class="load-btn-desc">Importar archivo JSON guardado previamente</div>
+        </div>
+      </button>
+    </div>
   </div>
-  <div class="form-control">
-    <div class="flex items-center mb-2 gap-2">
-      <label for="moneda" class="label font-medium">Moneda</label>
-      <br>
-      <select
-        formControlName="moneda"
-        id="moneda"
-        class="select select-bordered w-full"
-      >
-        <option value="CLP">Pesos Chilenos</option>
-        <option value="UF">UF</option>
-      </select>
-      <label for="nro_cotizacion">Nº Cotización</label>
-      <input formControlName="nro_cotizacion" id="nro_cotizacion" placeholder="N° Cotización" class="input input-bordered w-32 ml-4"/>
 
+  <!-- Header Principal -->
+  <div class="header-section">
+    <h1 class="main-title">📋 Nueva Cotización</h1>
+    <p class="subtitle">Complete los siguientes datos para crear su cotización</p>
+  </div>
+
+  <!-- Moneda y Número de Cotización -->
+  <div class="form-control">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="moneda" class="label font-medium">Moneda</label>
+        <select
+          formControlName="moneda"
+          id="moneda"
+          class="select select-bordered w-full"
+        >
+          <option value="CLP">CLP</option>
+          <option value="UF">UF</option>
+        </select>
+      </div>
+      <div>
+        <label for="nro_cotizacion" class="label font-medium">Nº Cotización</label>
+        <input formControlName="nro_cotizacion" id="nro_cotizacion" placeholder="N° Cotización" class="input input-bordered w-full"/>
+      </div>
     </div>
   </div>
 
   <!-- Empresa -->
   <div class="collapse collapse-arrow bg-base-200 rounded-lg shadow">
     <input type="checkbox" />
-    <div class="collapse-title text-lg font-bold">DATOS EMPRESA</div>
+    <div class="collapse-title text-lg font-bold">DATOS DE SU EMPRESA</div>
     <div class="collapse-content space-y-3">
       <div class="form-control">
         <label for="nombre_empresa" class="label">Nombre Empresa</label>
@@ -88,7 +108,7 @@
   <!-- Cliente -->
   <div class="collapse collapse-arrow bg-base-200 rounded-lg shadow">
     <input type="checkbox" />
-    <div class="collapse-title text-lg font-bold">DATOS CLIENTE</div>
+    <div class="collapse-title text-lg font-bold">DATOS DEL CLIENTE</div>
     <div class="collapse-content space-y-3">
       <div class="form-control">
         <label for="nombre_cliente" class="label">Nombre Cliente</label>
@@ -100,11 +120,11 @@
         />
       </div>
       <div class="form-control">
-        <label for="obra_cliente" class="label">Obra Cliente</label>
+        <label for="obra_cliente" class="label">Obra/Trabajo</label>
         <input
           formControlName="obra_cliente"
           id="obra_cliente"
-          placeholder="Obra Cliente"
+          placeholder="Obra/Trabajo"
           class="input input-bordered w-full"
         />
       </div>
@@ -149,21 +169,27 @@
 
   <!-- Productos -->
   <div class="bg-base-200 p-4 rounded-lg shadow space-y-3">
-    <h2 class="text-lg font-bold">PRODUCTOS</h2>
+    <h2 class="text-lg font-bold">PRODUCTOS / SERVICIOS</h2>
+    <p class="helper-text">📦 Agregue los productos o servicios que desea cotizar</p>
     <div class="flex flex-col gap-2">
-      <span class="text-sm">total productos: {{productosArray.length}}</span>
       <button
         type="button"
         (click)="addProduct()"
-        class="btn btn-primary btn-sm w-fit"
+        class="btn-add-product-new"
       >
-        Agregar Producto
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        <span>Agregar Producto / Servicio</span>
       </button>
-      <div class="overflow-x-auto">
+      <span class="product-counter">Total: {{productosArray.length}} producto(s)</span>
+      
+      <!-- Vista Desktop: Tabla normal -->
+      <div class="overflow-x-auto desktop-table">
         <table class="table table-zebra w-full text-sm">
           <thead>
             <tr>
-              <th>Producto</th>
+              <th>Producto/Servicio</th>
               <th>Descripción</th>
               <th>Unidad</th>
               <th>Cantidad</th>
@@ -193,6 +219,8 @@
                     class="select select-bordered select-sm w-full"
                   >
                     <option value="" disabled>Seleccione</option>
+                    <option value="na">N/A</option>
+                    <option value="m">m</option>
                     <option value="m2">m²</option>
                     <option value="m3">m³</option>
                     <option value="cm">cm</option>
@@ -204,7 +232,7 @@
                     formControlName="cantidad"
                     type="number"
                     min="0"
-                    class="input input-bordered input-sm w-20"
+                    class="input input-bordered input-sm w-full"
                   />
                 </td>
                 <td>
@@ -212,7 +240,7 @@
                     formControlName="valorUnitario"
                     type="number"
                     min="0"
-                    class="input input-bordered input-sm w-24"
+                    class="input input-bordered input-sm w-full"
                   />
                 </td>
                 <td>
@@ -232,6 +260,60 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Vista Mobile: Cards -->
+      <div class="mobile-products" formArrayName="productos">
+        @for (control of productosArray.controls; track control; let index=$index){
+          <div class="product-card-mobile" [formGroupName]="index">
+            <div class="mobile-card-header">
+              <span class="product-number">Producto #{{index + 1}}</span>
+              <button type="button" (click)="removeProduct(index)" class="btn btn-error btn-xs">Eliminar</button>
+            </div>
+            
+            <div class="mobile-card-content">
+              <div class="form-control">
+                <label class="label-mobile">Producto/Servicio</label>
+                <textarea formControlName="producto" class="textarea textarea-bordered textarea-sm w-full"></textarea>
+              </div>
+
+              <div class="form-control">
+                <label class="label-mobile">Descripción</label>
+                <textarea formControlName="descripcion" class="textarea textarea-bordered textarea-sm w-full"></textarea>
+              </div>
+
+              <div class="form-control">
+                <label class="label-mobile">Unidad</label>
+                <select formControlName="unidad" class="select select-bordered select-sm w-full">
+                  <option value="" disabled>Seleccione</option>
+                  <option value="na">N/A</option>
+                  <option value="m">m</option>
+                  <option value="m2">m²</option>
+                  <option value="m3">m³</option>
+                  <option value="cm">cm</option>
+                  <option value="cm2">cm²</option>
+                </select>
+              </div>
+
+              <div class="mobile-grid-2">
+                <div class="form-control">
+                  <label class="label-mobile">Cantidad</label>
+                  <input formControlName="cantidad" type="number" min="0" class="input input-bordered input-sm w-full"/>
+                </div>
+
+                <div class="form-control">
+                  <label class="label-mobile">Valor Unitario</label>
+                  <input formControlName="valorUnitario" type="number" min="0" class="input input-bordered input-sm w-full"/>
+                </div>
+              </div>
+
+              <div class="mobile-total">
+                <span class="mobile-total-label">Total:</span>
+                <span class="mobile-total-value">$ {{ getTotal(index) | number:'1.0-0':'es' }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
     </div>
 
     <!-- Resumen -->
@@ -247,9 +329,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ getSubtotal() | number:'1.0-0' }}</td>
-            <td>{{ getIVA() | number:'1.0-0' }}</td>
-            <td>{{ getTotalCotizacion() | number:'1.0-0' }}</td>
+            <td>$ {{ getSubtotal() | number:'1.0-0':'es' }}</td>
+            <td>$ {{ getIVA() | number:'1.0-0':'es' }}</td>
+            <td>$ {{ getTotalCotizacion() | number:'1.0-0':'es' }}</td>
           </tr>
         </tbody>
       </table>
@@ -258,7 +340,8 @@
 
   <!-- Condiciones -->
   <div class="bg-base-200 p-4 rounded-lg shadow space-y-3">
-    <h2 class="text-lg font-bold">CONDICIONES</h2>
+    <h2 class="text-lg font-bold">CONDICIONES DE LA COTIZACIÓN</h2>
+    <p class="helper-text">📝 Indique las condiciones comerciales de su cotización</p>
     <div class="form-control">
       <label for="validez_oferta" class="label">Validez Oferta</label>
       <input
@@ -288,14 +371,37 @@
     </div>
   </div>
 
-  <!-- Generar -->
-  <div class="flex gap-2 justify-center">
-    <button type="button" (click)="generar_doc()" class="btn btn-secondary">
-      Generar DOC
-    </button>
-    <!--<button type="button" (click)="generar_pdf()" class="btn btn-primary">
-      Generar PDF
-    </button>-->
-    
+  <!-- Acciones Finales -->
+  <div class="final-section">
+    <h2 class="final-title">¿Qué quiere hacer ahora?</h2>
+    <p class="final-subtitle">Elija la acción que necesite realizar con su cotización</p>
+
+    <div class="action-buttons-grid">
+      <!-- Crear Documento -->
+      <button type="button" (click)="generar_doc()" class="action-btn action-btn-primary">
+        <div class="btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div class="btn-content">
+          <div class="btn-title">Crear Documento</div>
+          <div class="btn-desc">Generar archivo Word con la cotización</div>
+        </div>
+      </button>
+
+      <!-- Guardar en PC -->
+      <button type="button" (click)="exportar_cotizacion()" class="action-btn action-btn-warning">
+        <div class="btn-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+          </svg>
+        </div>
+        <div class="btn-content">
+          <div class="btn-title">Guardar en mi PC</div>
+          <div class="btn-desc">Descargar como archivo JSON para usar después</div>
+        </div>
+      </button>
+    </div>
   </div>
 </form>

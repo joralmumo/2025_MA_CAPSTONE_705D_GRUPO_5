@@ -1,18 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
-import { inject as injectAnalytics } from '@vercel/analytics';
+import { RouterLinkActive, RouterLink, RouterOutlet, Router } from '@angular/router';
+import { NgxSonnerToaster } from 'ngx-sonner';
+import { toast } from 'ngx-sonner';
+// import { inject as injectAnalytics } from '@vercel/analytics';
 
-injectAnalytics();
+// injectAnalytics();
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgxSonnerToaster],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'InstacotizaRequeteOnline';
-
+  constructor(
+              private router: Router
+  ) {}
   consoleDebug() {
     console.log('AppComponent loaded');
   }
@@ -26,7 +30,8 @@ export class AppComponent {
 
   cerrarSesion() {
     sessionStorage.clear();
-    window.location.reload();
+    toast.success('Sesión cerrada exitosamente');
+    this.router.navigateByUrl('/login');
   }
 
   getUserName(): string {

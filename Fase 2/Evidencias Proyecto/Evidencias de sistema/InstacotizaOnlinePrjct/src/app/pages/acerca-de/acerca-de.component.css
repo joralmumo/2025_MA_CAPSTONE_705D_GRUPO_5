@@ -1,0 +1,37 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Smooth transitions para cards */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* Mejora visual para badges */
+.badge {
+  transition: all 0.2s ease;
+}
+
+/* Animación sutil para avatares */
+.avatar {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .avatar {
+  transform: scale(1.05);
+}

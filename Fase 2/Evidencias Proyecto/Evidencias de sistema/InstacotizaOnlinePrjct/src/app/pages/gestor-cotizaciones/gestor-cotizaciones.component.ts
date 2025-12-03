@@ -4,6 +4,7 @@ import { ApicrudService } from '../../services/apicrud.service';
 import { CotizacionSharedService } from '../../services/cotizacion-shared.service';
 import { Router } from '@angular/router';
 import { ICotizacion } from '../interfaces/interfaces';
+import { toast } from 'ngx-sonner';
 
 /*
 interface Cotizacion {
@@ -46,6 +47,7 @@ export class GestorCotizacionesComponent implements OnInit {
     }
     this.cotizacionShared.setCotizacionSeleccionada(cotizacion);
     this.router.navigate(['/cotizador-r']);
+    toast.success('Cotización cargada en el cotizador');
   }
 
   cargarCotizaciones() {
@@ -108,7 +110,7 @@ export class GestorCotizacionesComponent implements OnInit {
 
     const userId = sessionStorage.getItem('id');
     if (!userId) {
-      alert('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
+      toast.error('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
       return;
     }
 
@@ -124,7 +126,7 @@ export class GestorCotizacionesComponent implements OnInit {
       next: (response) => {
         //console.log('Cotización eliminada exitosamente:', response);
         this.cotizaciones.splice(index, 1);
-        alert(`Cotización "${cotizacion.nro_cotizacion}" eliminada exitosamente.`);
+        toast.success(`Cotización "${cotizacion.nro_cotizacion}" eliminada exitosamente.`);
         this.isLoading = false;
         this.recargarCotizaciones(); 
       },

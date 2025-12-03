@@ -47,12 +47,10 @@ export class PerfilComponent {
       next: (response) => {
         if (response && response.length > 0) {
           this.usuario = response[0];
-          //console.log('Usuario cargado:', this.usuario);
         }
         this.cargando = false;
       },
       error: (error) => {
-        //console.error('Error al cargar el perfil:', error);
         this.cargando = false;
       }
     });
@@ -114,7 +112,7 @@ export class PerfilComponent {
         this.usuario = datosActualizados;
         this.editandoPerfil = false;
         
-        // Recargar el perfil para obtener datos frescos
+        // Recargar el perfil para obtener datos actualizados
         this.cargarPerfilUsuario();
       },
       error: (error) => {

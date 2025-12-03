@@ -1,5 +1,6 @@
 import { Component, inject, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   Document,
@@ -23,17 +24,10 @@ import {
 import { saveAs } from 'file-saver';
 import { DecimalPipe } from '@angular/common';
 import { ApicrudService } from '../../services/apicrud.service';
-import { jsPDF } from 'jspdf';
-import {autoTable} from 'jspdf-autotable';
 import { CotizacionSharedService } from '../../services/cotizacion-shared.service';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-
-declare module 'jspdf' {
-  interface jsPDF {
-    autoTable: (options: any) => jsPDF;
-  }
-}
+import { toast } from 'ngx-sonner';
 
 interface Producto {
   producto: string;
@@ -45,7 +39,7 @@ interface Producto {
 }
 
 type productForm = FormGroup<{
-  producto: FormControl<Producto | null>;
+  producto: FormControl<string>;
   descripcion: FormControl<string>;
   unidad: FormControl<string>;
   cantidad: FormControl<number>;
@@ -87,7 +81,8 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
   private cotizacionSubscription?: Subscription;
 
   constructor(private apiCrud: ApicrudService,
-              private cotizacionShared: CotizacionSharedService
+              private cotizacionShared: CotizacionSharedService,
+              private router: Router
   ) {}
 
   ngOnInit() {
@@ -156,248 +151,222 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
     return this.form.get('productos') as FormArray<productForm>;
   }
 
-  limpiarFormulario() {
-    if (confirm('¿Está seguro que desea limpiar el formulario? Se perderán todos los datos no guardados.')) {
-      this.form.reset({
-        nro_cotizacion: '',
-        nombre_empresa: '',
-        telefono_empresa: '',
-        rut_empresa: '',
-        email_empresa: '',
-        direccion_empresa: '',
-        productos: [],
-        nombre_cliente: '',
-        obra_cliente: '',
-        contacto_cliente: '',
-        email_cliente: '',
-        direccion_cliente: '',
-        fecha: '',
-        validez_oferta: '',
-        forma_pago: '',
-        presupuesto_incluye: '',
-        moneda: 'CLP',
-        logo: null
-      });
-      this.limpiarBorrador();
-    }
+limpiarFormulario() {
+    toast('¿Limpiar el formulario? Se perderán todos los datos no guardados', {
+      duration: Infinity,
+      action: {
+        label: 'Limpiar',
+        onClick: () => {
+          this.form.reset({
+            nro_cotizacion: '',
+            nombre_empresa: '',
+            telefono_empresa: '',
+            rut_empresa: '',
+            email_empresa: '',
+            direccion_empresa: '',
+            productos: [],
+            nombre_cliente: '',
+            obra_cliente: '',
+            contacto_cliente: '',
+            email_cliente: '',
+            direccion_cliente: '',
+            fecha: '',
+            validez_oferta: '',
+            forma_pago: '',
+            presupuesto_incluye: '',
+            moneda: 'CLP',
+            logo: null
+          });
+          this.limpiarBorrador();
+          toast.success('Formulario limpiado', {
+            style: { background: '#10b981', color: 'white' }
+          });
+        },
+      },
+      cancel: {
+        label: 'Cancelar',
+        onClick: () => {}
+      },
+      style: {
+        background: '#f59e0b',
+        color: 'white',
+        fontWeight: '600'
+      }
+    });
   }
+
 
   //METODOS DE ICTZ-ONLINE (GUARDAR Y CARGAR COTIZACION)
   guardarCotizacion() {
-    //console.log('Guardando cotización en la base de datos...');
-    if (this.form.valid) {
-      const formData = this.form.value;
-      const userId = sessionStorage.getItem('id')
-      if (!userId){
-        alert('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
-        //console.log('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
-        return;
-      }
-
-      // crear objeto cotizacion
-      const cotizacionData: any = {
-        ...formData,
-        fecha_creacion: new Date().toISOString()
-      };
-
-      if (cotizacionData.logo){
-        delete cotizacionData.logo; // elimino el logo porque da error al guardar xd
-      }
-
-      // guardando coti
-      this.apiCrud.agregarCotizacion(userId, cotizacionData).subscribe({
-        next: (response) => {
-          console.log('Cotización guardada exitosamente:', response);
-          alert('Cotización guardada exitosamente');
-
-          this.limpiarBorrador();
-
-          if (response.totalCotizaciones){
-            console.log(`Total cotizaciones del usuario: ${response.totalCotizaciones}`);
-          }
-        },
-        error: (error) => {
-          console.error('Error al guardar la cotización:', error);
-          alert('Error al guardar la cotización. Por favor, intente nuevamente más tarde.');
-        }
-      });
-    } else {
-      console.log('Formulario inválido - No se puede guardar');
-      alert('Por favor, complete todos los campos antes de guardar la cotización');
-    }
-  }
-
-  cargarCotizacion() {
-    console.log('Cargar cotización en la base de datos...');
+    console.log('Guardando cotización en la base de datos...');
+    
+    const formData = this.form.value;
     const userId = sessionStorage.getItem('id');
-    if (!userId){
-      alert('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
+    
+    if (!userId) {
+      toast.error('No se encontró usuario logueado', {
+        style: { background: '#ef4444', color: 'white' }
+      });
       return;
     }
 
-    this.apiCrud.buscarUsuarioPorId(userId).subscribe({
-      next: (user) => {
-        if (user && user.cotizaciones && user.cotizaciones.length > 0) {
-          this.mostrarListaCotizaciones(user.cotizaciones);
-        } else {
-          alert('No se encontraron cotizaciones guardadas para este usuario.');
+    const cotizacionData: any = {
+      ...formData,
+      fecha_creacion: new Date().toISOString()
+    };
+
+    if (cotizacionData.logo) {
+      delete cotizacionData.logo;
+    }
+
+    this.apiCrud.agregarCotizacion(userId, cotizacionData).subscribe({
+      next: (response) => {
+        toast.success('Cotización guardada exitosamente', {
+          style: { background: '#10b981', color: 'white' },
+          duration: 3000
+        });
+        this.limpiarBorrador();
+        
+        if (response.totalCotizaciones) {
+          console.log('Total cotizaciones del usuario:', response.totalCotizaciones);
         }
       },
       error: (error) => {
-        console.error('Error al buscar usuario:', error);
-        alert('Error al buscar usuario. Por favor, intente nuevamente más tarde.');
+        toast.error('Error al guardar la cotización', {
+          style: { background: '#ef4444', color: 'white' },
+          duration: 4000
+        });
       }
     });
+  }
+
+  cargarCotizacion() {
+    this.router.navigateByUrl('/gestor-cotizaciones');
+    toast.info('Seleccione una cotización para cargarla en el cotizador')
   }
 
   // Método para sobreescribir/actualizar una cotización existente
   sobreescribirCotizacion() {
     console.log('Sobreescribiendo cotización en la base de datos...');
     
-    if (this.form.valid) {
-      const formData = this.form.value;
-      const userId = sessionStorage.getItem('id');
+    const formData = this.form.value;
+    const userId = sessionStorage.getItem('id');
 
-      if (!userId) {
-        alert('No se encontró usuario logueado. Por favor, inicie sesión nuevamente.');
-        return;
-      }
-
-      if (!formData.nro_cotizacion) {
-        alert('Debe especificar un número de cotización para sobreescribir.');
-        return;
-      }
-
-      // Confirmar antes de sobreescribir
-      const confirmar = confirm(
-        `¿Está seguro de que desea sobreescribir la cotización N°${formData.nro_cotizacion}? Esta acción no se puede deshacer.`
-      );
-
-      if (!confirmar) {
-        return;
-      }
-
-      // Crear objeto cotización
-      const cotizacionData: any = {
-        nro_cotizacion: formData.nro_cotizacion,
-        nombre_empresa: formData.nombre_empresa,
-        telefono_empresa: formData.telefono_empresa,
-        rut_empresa: formData.rut_empresa,
-        email_empresa: formData.email_empresa,
-        direccion_empresa: formData.direccion_empresa,
-        nombre_cliente: formData.nombre_cliente,
-        obra_cliente: formData.obra_cliente,
-        contacto_cliente: formData.contacto_cliente,
-        email_cliente: formData.email_cliente,
-        direccion_cliente: formData.direccion_cliente,
-        fecha: formData.fecha,
-        validez_oferta: formData.validez_oferta,
-        forma_pago: formData.forma_pago,
-        presupuesto_incluye: formData.presupuesto_incluye,
-        moneda: formData.moneda,
-        productos: formData.productos
-      };
-
-      // Eliminar logo si existe
-      if (cotizacionData.logo) {
-        delete cotizacionData.logo;
-      }
-
-      // Llamar al servicio para actualizar
-      this.apiCrud.actualizarCotizacionPorNumero(userId, cotizacionData).subscribe({
-        next: (response) => {
-          console.log('Cotización sobreescrita exitosamente:', response);
-          alert(`Cotización N°${formData.nro_cotizacion} sobreescrita exitosamente`);
-          this.limpiarBorrador();
-        },
-        error: (error) => {
-          console.error('Error al sobreescribir la cotización:', error);
-          if (error.status === 404) {
-            alert(`No se encontró la cotización N°${formData.nro_cotizacion}. Verifique el número e intente nuevamente.`);
-          } else {
-            alert('Error al sobreescribir la cotización. Por favor, intente nuevamente.');
-          }
-        }
+    if (!userId) {
+      toast.error('❌ No se encontró usuario logueado', {
+        style: { background: '#ef4444', color: 'white' }
       });
-
-    } else {
-      console.log('Formulario inválido - No se puede sobreescribir');
-      alert('Por favor, complete todos los campos antes de sobreescribir la cotización');
+      return;
     }
-  }
 
+    if (!formData.nro_cotizacion) {
+      toast.warning('⚠️ Debe especificar un número de cotización', {
+        style: { background: '#f59e0b', color: 'white' }
+      });
+      return;
+    }
 
-  //temporal!! hay que poner la UI que aparezca una lista de las cotizaciones guardadas
-  private mostrarListaCotizaciones(cotizaciones: any[]) {
-    let mensaje = 'FUNCION TEMPORAL!!\n\nSeleccione una cotización para cargar:\n\n';
-    
-    cotizaciones.forEach((cotizacion, index) => {
-      mensaje += `${index + 1}. ${cotizacion.nro_cotizacion || 'Sin número'} - ${cotizacion.nombre_cliente || 'Sin cliente'} (${cotizacion.fecha || 'Sin fecha'})\n`;
-    });
+    // Toast de confirmación
+    toast(`¿Sobreescribir la cotización N°${formData.nro_cotizacion}?`, {
+      duration: Infinity,
+      description: 'Esta acción no se puede deshacer',
+      action: {
+        label: 'Sobreescribir',
+        onClick: () => {
+          const cotizacionData: any = {
+            nro_cotizacion: formData.nro_cotizacion,
+            nombre_empresa: formData.nombre_empresa,
+            telefono_empresa: formData.telefono_empresa,
+            rut_empresa: formData.rut_empresa,
+            email_empresa: formData.email_empresa,
+            direccion_empresa: formData.direccion_empresa,
+            nombre_cliente: formData.nombre_cliente,
+            obra_cliente: formData.obra_cliente,
+            contacto_cliente: formData.contacto_cliente,
+            email_cliente: formData.email_cliente,
+            direccion_cliente: formData.direccion_cliente,
+            fecha: formData.fecha,
+            validez_oferta: formData.validez_oferta,
+            forma_pago: formData.forma_pago,
+            presupuesto_incluye: formData.presupuesto_incluye,
+            moneda: formData.moneda,
+            productos: formData.productos
+          };
 
-    const seleccion = prompt(mensaje + '\nIngrese el número de la cotización:');
-    
-    if (seleccion) {
-      const indice = parseInt(seleccion) - 1;
-      if (indice >= 0 && indice < cotizaciones.length) {
-        this.cargarDatosEnFormulario(cotizaciones[indice]);
-        alert('Cotización cargada exitosamente');
-      } else {
-        alert('Selección inválida');
+          if (cotizacionData.logo) {
+            delete cotizacionData.logo;
+          }
+
+          this.apiCrud.actualizarCotizacionPorNumero(userId, cotizacionData).subscribe({
+            next: (response) => {
+              console.log('Cotización sobreescrita exitosamente:', response);
+              toast.success(`✅ Cotización N°${formData.nro_cotizacion} actualizada`, {
+                style: { background: '#10b981', color: 'white' }
+              });
+              this.limpiarBorrador();
+            },
+            error: (error) => {
+              console.error('Error al sobreescribir la cotización:', error);
+              if (error.status === 404) {
+                toast.error(`❌ No se encontró la cotización N°${formData.nro_cotizacion}`, {
+                  style: { background: '#ef4444', color: 'white' }
+                });
+              } else {
+                toast.error('❌ Error al sobreescribir la cotización', {
+                  style: { background: '#ef4444', color: 'white' }
+                });
+              }
+            }
+          });
+        },
+      },
+      cancel: {
+        label: 'Cancelar',
+        onClick: () => {}
+      },
+      style: {
+        background: '#f59e0b',
+        color: 'white',
+        fontWeight: '600'
       }
-    }
+    });
   }
 
-  //MÉTODOS DE ICTZ-OFFLINE (EXPORTACION E IMPORTACION) con JSONS
+  //MÉTODOS DE ICTZ-OFFLINE (EXPORTACION E IMPORTACION) con los JSONS
   exportar_cotizacion() {
     console.log('Exportando cotización como plantilla...');
     
-    if (this.form.valid) {
-      // sacar todos los datos del formulario
-      const formData = this.form.value;
+    const formData = this.form.value;
+    const datosParaExportar = { ...formData };
+    delete datosParaExportar.logo;
 
-      // saco el logo porque da error la cuestion.......
-      const datosParaExportar = { ...formData};
-      delete datosParaExportar.logo;
+    const plantilla = {
+      nombre_plantilla: `Cotización_${formData.nro_cotizacion || 'Sin_Numero'}_Template`,
+      fecha_creacion: new Date().toISOString(),
+      version: '1.0',
+      datos: datosParaExportar
+    };
 
-      // creo objeto de plantilla con metadatos
-      const plantilla = {
-        nombre_plantilla: `Cotización_${formData.nro_cotizacion || 'Template'}`,
-        fecha_creacion: new Date().toISOString(),
-        version: '1.0',
-        datos: formData
-      };
-      
-      // Convertir a JSON
-      const jsonString = JSON.stringify(plantilla, null, 2);
-      
-      // Crear blob y descargar
-      const blob = new Blob([jsonString], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      
-      // Crear elemento de descarga
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `plantilla_cotizacion_${formData.nro_cotizacion || new Date().getTime()}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      
-      // Limpiar URL
-      URL.revokeObjectURL(url);
-      
-      console.log('Plantilla exportada exitosamente');
-      alert('Plantilla exportada exitosamente');
-      
-    } else {
-      console.log('Formulario inválido - No se puede exportar');
-      alert('Por favor, complete todos los campos antes de exportar la plantilla');
-    }
+    const jsonString = JSON.stringify(plantilla, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `plantilla_cotizacion_${formData.nro_cotizacion || 'borrador'}_${new Date().getTime()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+
+    console.log('Plantilla exportada exitosamente');
+    toast.success('Plantilla exportada exitosamente', {
+      style: { background: '#8b5cf6', color: 'white' }
+    });
   }
-
-  importar_cotizacion() {
-    console.log('Importando cotización desde plantilla...');
-    
+  //sin toasts... sepa dios por qué no funcionan aquí
+  importar_cotizacion() {   
     // input file oculto
     const input = document.createElement('input');
     input.type = 'file';
@@ -417,22 +386,21 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
             // Validar estructura de la plantilla
             if (this.validarEstructuraPlantilla(plantillaData)) {
               this.cargarDatosEnFormulario(plantillaData.datos);
-              console.log('Plantilla importada exitosamente');
-              alert('Plantilla importada exitosamente');
+              toast.success('Plantilla importada y datos cargados en el formulario');
             } else {
               console.error('Estructura de plantilla inválida');
-              alert('El archivo JSON no tiene la estructura correcta de una plantilla de cotización');
+              toast.error('Estructura de plantilla inválida. Verifique el archivo.');
             }
             
           } catch (error) {
             console.error('Error al parsear JSON:', error);
-            alert('Error al leer el archivo JSON. Verifique que el archivo sea válido.');
+            toast.error('Error al leer el archivo JSON. Asegúrese de que sea un archivo válido.');
           }
         };
         
         reader.readAsText(file);
       } else {
-        alert('Por favor, seleccione un archivo JSON válido');
+        toast.error('Por favor seleccione un archivo válido');
       }
       
       // Limpiar input
@@ -497,12 +465,9 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
 
   // Cargar datos de la plantilla-json en el forms
   private cargarDatosEnFormulario(datos: any) {
-    // Confirmar si el usuario quiere reemplazar los datos actuales
-    /*
-      */
-    
+    // Confirmar si el usuario quiere reemplazar los datos actuales    
     try {
-      // Limpiar productos actuales (dejar solo uno vacío)
+      // Limpiar productos actuales (deja solo uno vacío)
       while (this.productosArray.length > 1) {
         this.productosArray.removeAt(this.productosArray.length - 1);
       }
@@ -535,11 +500,11 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
       if (datos.productos && datos.productos.length > 0) {
         datos.productos.forEach((producto: any) => {
           const productoForm = this.formBuilder.group({
-            producto: this.formBuilder.control(producto.producto || '', Validators.required),
-            descripcion: this.formBuilder.control(producto.descripcion || '', Validators.required),
-            unidad: this.formBuilder.control(producto.unidad || '', Validators.required),
-            cantidad: this.formBuilder.control(producto.cantidad || 0, [Validators.required, Validators.min(0)]),
-            valorUnitario: this.formBuilder.control(producto.valorUnitario || 0, [Validators.required, Validators.min(0)])
+            producto: this.formBuilder.control(producto.producto || '', ),
+            descripcion: this.formBuilder.control(producto.descripcion || '', ),
+            unidad: this.formBuilder.control(producto.unidad || '', ),
+            cantidad: this.formBuilder.control(producto.cantidad || 0, [Validators.min(0)]),
+            valorUnitario: this.formBuilder.control(producto.valorUnitario || 0, [Validators.min(0)])
           });
           
           this.productosArray.push(productoForm);
@@ -547,46 +512,43 @@ export class CotizadorRComponent implements OnInit, OnDestroy{
       } else {
         // Si no hay productos, se coloca uno vacio
         this.productosArray.push(this.createProductForm());
-      }
-      
-      console.log('Formulario actualizado con datos de la plantilla');
-      
+      }      
     } catch (error) {
       console.error('Error al cargar datos en el formulario:', error);
-      alert('Error al cargar los datos de la plantilla en el formulario');
+      toast.error('Error al cargar los datos de la plantilla en el formulario. Verifique la plantilla.');
     }
   }
 
   //MÉTODOS DEL FORMULARIO!
 
   form: Form = this.formBuilder.group({
-    nro_cotizacion: this.formBuilder.control('', Validators.required),
-    nombre_empresa: this.formBuilder.control('', Validators.required),
-    telefono_empresa: this.formBuilder.control('', [Validators.required, Validators.pattern('^[0-9]+$')]),
-    rut_empresa: this.formBuilder.control('', Validators.required),
-    email_empresa: this.formBuilder.control('', [Validators.required, Validators.email]),
-    direccion_empresa: this.formBuilder.control('', Validators.required),
+    nro_cotizacion: this.formBuilder.control('', ),
+    nombre_empresa: this.formBuilder.control('', ),
+    telefono_empresa: this.formBuilder.control('', [Validators.pattern('^[0-9]+$')]),
+    rut_empresa: this.formBuilder.control('', ),
+    email_empresa: this.formBuilder.control('', [Validators.email]),
+    direccion_empresa: this.formBuilder.control('', ),
     productos: this.formBuilder.array<productForm>([this.createProductForm()]),
-    nombre_cliente: this.formBuilder.control('', Validators.required),
-    obra_cliente: this.formBuilder.control('', Validators.required),
-    contacto_cliente: this.formBuilder.control('', Validators.required),
-    email_cliente: this.formBuilder.control('', [Validators.required, Validators.email]),
-    direccion_cliente: this.formBuilder.control('', Validators.required),
-    fecha: this.formBuilder.control('', Validators.required),
-    validez_oferta: this.formBuilder.control('', Validators.required),
-    forma_pago: this.formBuilder.control('', Validators.required),
-    presupuesto_incluye: this.formBuilder.control('', Validators.required),
-    moneda: this.formBuilder.control('CLP', Validators.required),
+    nombre_cliente: this.formBuilder.control('', ),
+    obra_cliente: this.formBuilder.control('', ),
+    contacto_cliente: this.formBuilder.control('', ),
+    email_cliente: this.formBuilder.control('', [Validators.email]),
+    direccion_cliente: this.formBuilder.control('', ),
+    fecha: this.formBuilder.control('', ),
+    validez_oferta: this.formBuilder.control('', ),
+    forma_pago: this.formBuilder.control('', ),
+    presupuesto_incluye: this.formBuilder.control('', ),
+    moneda: this.formBuilder.control('CLP', ),
     logo: this.formBuilder.control<File | null>(null)
   });
 
   createProductForm(): productForm {
     return this.formBuilder.group({
-      producto: this.formBuilder.control<Producto | null>(null, Validators.required),
-      descripcion: this.formBuilder.control('', Validators.required),
-      unidad: this.formBuilder.control('', Validators.required),
-      cantidad: this.formBuilder.control(0, [Validators.required, Validators.min(0)]),
-      valorUnitario: this.formBuilder.control(0, [Validators.required, Validators.min(0)]),
+      producto: this.formBuilder.control('', ),
+      descripcion: this.formBuilder.control('', ),
+      unidad: this.formBuilder.control('', ),
+      cantidad: this.formBuilder.control(0, [Validators.min(0)]),
+      valorUnitario: this.formBuilder.control(0, [Validators.min(0)]),
     });
   }
 

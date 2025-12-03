@@ -12,6 +12,7 @@ import { RecuperarContrasenaComponent } from './pages/recuperar-contrasena/recup
 import { UpdatePerfilComponent } from './pages/update-perfil/update-perfil.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
+import { InstalarAppComponent } from './pages/instalar-app/instalar-app.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path: 'cotizador', component: CotizadorComponent},
     {path: 'login', component: LoginComponent}, 
     {path: 'register', component: RegisterComponent}, 
+    {path: 'instalar-app', component: InstalarAppComponent},
     {path: 'cotizador-r', component: CotizadorRComponent, canActivate: [AutorizadoGuard]},
     {path: 'perfil', component: PerfilComponent, canActivate: [AutorizadoGuard]}, 
     {path: 'gestor-cotizaciones', component: GestorCotizacionesComponent, canActivate: [AutorizadoGuard]}, 

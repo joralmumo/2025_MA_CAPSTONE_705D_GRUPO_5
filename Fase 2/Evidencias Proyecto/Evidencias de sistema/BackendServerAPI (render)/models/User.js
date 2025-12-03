@@ -18,9 +18,9 @@ const cotizacionSchema = new mongoose.Schema({
   forma_pago: String,
   presupuesto_incluye: String,
   moneda: String,
-  productos: [mongoose.Schema.Types.Mixed], // Array de productos
+  productos: [mongoose.Schema.Types.Mixed],
   fecha_creacion: { type: Date, default: Date.now }
-}, { _id: false }); // _id: false para evitar que cada cotización tenga un _id y colapsar
+}, { _id: false });
 
 const userSchema = new mongoose.Schema({
   nombre: {
@@ -49,22 +49,29 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  cotizaciones: [cotizacionSchema] 
+  cotizaciones: [cotizacionSchema],
+  resetCode: {
+    type: String,
+    default: null
+  },
+  resetCodeExpiry: {
+    type: Date,
+    default: null
+  }
 }, {
   timestamps: true
 });
 
 // Hasheo de contraseña!!
 userSchema.pre('save', async function(next) {
-    if (!this.isModified('contrasena')) return next();
-    
-    this.contrasena = await bcrypt.hash(this.contrasena, 12);
-    next();
+  if (!this.isModified('contrasena')) return next();
+  this.contrasena = await bcrypt.hash(this.contrasena, 12);
+  next();
 });
 
 // comparacion de contraseñas
 userSchema.methods.comparePassword = async function(candidatePassword) {
-    return await bcrypt.compare(candidatePassword, this.contrasena);
+  return await bcrypt.compare(candidatePassword, this.contrasena);
 };
 
 module.exports = mongoose.model('User', userSchema);

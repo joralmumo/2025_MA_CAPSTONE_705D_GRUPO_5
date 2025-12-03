@@ -1,0 +1,486 @@
+.install-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #1e5e3f;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.header h1 .title-icon {
+  color: #10b981;
+  filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3));
+  flex-shrink: 0;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Benefits Section */
+.benefits-section {
+  margin-bottom: 4rem;
+}
+
+.benefits-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #1e5e3f;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.benefits-section h2 .section-icon {
+  flex-shrink: 0;
+  color: #10b981;
+  filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3));
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.benefit-card {
+  background: linear-gradient(to bottom, #ffffff 0%, #f0fdf4 100%);
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+  border: 2px solid #10b981;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.25);
+  border-color: #059669;
+}
+
+.benefit-icon-wrapper {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.benefit-card:hover .benefit-icon-wrapper {
+  transform: scale(1.05) rotate(3deg);
+}
+
+.benefit-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: #1e5e3f;
+  font-weight: 600;
+}
+
+.benefit-card p {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Instructions Section */
+.instructions-section {
+  margin-bottom: 4rem;
+}
+
+.instruction-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.instruction-card.android {
+  border-color: #10b981;
+}
+
+.instruction-card.ios {
+  border-color: #059669;
+}
+
+.platform-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.platform-icon {
+  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+}
+
+.android-icon {
+  color: #10b981;
+}
+
+.android-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3));
+}
+
+.ios-icon {
+  color: #059669;
+}
+
+.ios-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(5, 150, 105, 0.3));
+}
+
+.platform-header h2 {
+  font-size: 1.8rem;
+  color: #1e5e3f;
+  flex: 1;
+  margin: 0;
+}
+
+.badge {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Steps */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.step-number {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.step.success .step-number {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  font-size: 2rem;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-content h3 {
+  font-size: 1.3rem;
+  color: #1e5e3f;
+  margin-bottom: 0.5rem;
+}
+
+.step-content p {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.step-content strong {
+  color: #1e5e3f;
+  font-weight: 600;
+}
+
+.ios-share-icon {
+  display: inline-block;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.5rem;
+  background: #ecf0f1;
+  border-radius: 5px;
+  margin: 0 0.2rem;
+}
+
+/* Image Placeholder */
+.image-placeholder {
+  margin-top: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-placeholder img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.placeholder-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  padding: 3rem 2rem;
+  text-align: center;
+  border: 2px dashed #86efac;
+  border-radius: 10px;
+}
+
+.placeholder-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.placeholder-box p {
+  color: #166534;
+  font-size: 0.95rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* FAQ Section */
+.faq-section {
+  margin-bottom: 3rem;
+}
+
+.faq-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #1e5e3f;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.faq-section h2 .section-icon {
+  flex-shrink: 0;
+  color: #10b981;
+  filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3));
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.faq-item {
+  background: #f0fdf4;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-left: 4px solid #10b981;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 3px 15px rgba(16, 185, 129, 0.2);
+}
+
+.faq-item h3 {
+  font-size: 1.1rem;
+  color: #1e5e3f;
+  margin-bottom: 0.5rem;
+}
+
+.faq-item p {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Footer Note */
+.footer-note {
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.footer-note p {
+  color: #78350f;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+    flex-direction: row;
+  }
+
+  .header h1 .title-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .benefits-section h2 {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .instruction-card {
+    padding: 1.5rem;
+  }
+
+  .platform-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .platform-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .step {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .install-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .header h1 .title-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .benefit-card {
+    padding: 1.5rem;
+  }
+
+  .benefit-icon {
+    font-size: 2.5rem;
+  }
+
+  .platform-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 2.5rem;
+  }
+
+  .step-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .step-content p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.scroll-to-top-btn {
+  animation: fadeIn 0.6s ease-out, float 2.5s ease-in-out infinite 0.6s !important;
+}
